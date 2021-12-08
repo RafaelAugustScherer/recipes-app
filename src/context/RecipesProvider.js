@@ -27,7 +27,9 @@ function RecipesProvider({ children }) {
 
   const contextValue = {
     foods,
+    setFoods,
     drinks,
+    setDrinks,
   };
 
   return (
