@@ -14,7 +14,12 @@ function Recipes() {
           const MAX_LENGTH = 12;
           if (index < MAX_LENGTH) {
             return (
-              <Card key={ strMeal } thumb={ strMealThumb } name={ strMeal } />
+              <Card
+                key={ strMeal }
+                thumb={ strMealThumb }
+                name={ strMeal }
+                index={ index }
+              />
             );
           }
           return null;
