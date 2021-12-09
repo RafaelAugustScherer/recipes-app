@@ -12,7 +12,7 @@ function Bebes() {
       <CategoryFilters comesOuBebes="bebes" />
       {
         bebes.map((bebe, index) => {
-          const { strDrinkThumb, strDrink } = bebe;
+          const { strDrinkThumb, strDrink, idDrink } = bebe;
           const MAX_LENGTH = 12;
           if (index < MAX_LENGTH) {
             return (
@@ -21,6 +21,8 @@ function Bebes() {
                 thumb={ strDrinkThumb }
                 name={ strDrink }
                 index={ index }
+                id={ idDrink }
+                url="bebidas"
               />
             );
           }

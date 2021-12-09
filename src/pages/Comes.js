@@ -12,7 +12,7 @@ function Comes() {
       <CategoryFilters comesOuBebes="comes" />
       {
         comes.map((come, index) => {
-          const { strMealThumb, strMeal } = come;
+          const { strMealThumb, strMeal, idMeal } = come;
           const MAX_LENGTH = 12;
           if (index < MAX_LENGTH) {
             return (
@@ -21,6 +21,8 @@ function Comes() {
                 thumb={ strMealThumb }
                 name={ strMeal }
                 index={ index }
+                id={ idMeal }
+                url="comidas"
               />
             );
           }
