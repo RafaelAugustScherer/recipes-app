@@ -3,45 +3,71 @@ import React, { useState, useEffect, useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
 
 function CategoryFilters({ comesOuBebes }) {
-  const ENDPOINT_FOOD = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-  const ENDPOINT_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-
-  const [categories, setCategories] = useState([]);
-  const { setFoods, setDrinks } = useContext(RecipesContext);
+  const [state, setState] = useState({
+    categories: [],
+    isFiltered: false,
+  });
+  const {
+    comes,
+    bebes,
+    setComes,
+    setBebes,
+    backup,
+    setBackup,
+  } = useContext(RecipesContext);
 
   useEffect(() => {
-    const fetchFoodCategories = async () => {
-      const { meals } = await fetch(ENDPOINT_FOOD).then((response) => response.json());
-      const newCategories = meals.map(({ strCategory }) => strCategory);
-      setCategories(newCategories);
+    const ENDPOINT_COMES = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    const ENDPOINT_BEBES = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+
+    const fetchComesCategories = async () => {
+      const { meals } = await fetch(ENDPOINT_COMES).then((response) => response.json());
+      const categories = meals.map(({ strCategory }) => strCategory);
+      setState({ ...state, categories });
     };
 
-    const fetchDrinkCategories = async () => {
-      const { drinks } = await fetch(ENDPOINT_DRINK).then((response) => response.json());
-      const newCategories = drinks.map(({ strCategory }) => strCategory);
-      setCategories(newCategories);
+    const fetchBebesCategories = async () => {
+      const { drinks } = await fetch(ENDPOINT_BEBES).then((response) => response.json());
+      const categories = drinks.map(({ strCategory }) => strCategory);
+      setState({ ...state, categories });
     };
 
-    if (comesOuBebes === 'comes') fetchFoodCategories();
-    else fetchDrinkCategories();
+    if (comesOuBebes === 'comes') fetchComesCategories();
+    if (comesOuBebes === 'bebes') fetchBebesCategories();
   }, []);
 
-  const fetchByCategory = async (category) => {
+  const toggleFilter = async (category) => {
+    const { isFiltered } = state;
+    if (isFiltered && comesOuBebes === 'comes') {
+      setComes(backup);
+      setState({ ...state, isFiltered: false });
+      return null;
+    }
+    if (isFiltered && comesOuBebes === 'bebes') {
+      setBebes(backup);
+      setState({ ...state, isFiltered: false });
+      return null;
+    }
+
     if (comesOuBebes === 'comes') {
       const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
       const { meals } = await fetch(ENDPOINT).then((response) => response.json());
-      setFoods(meals);
+      setBackup(comes);
+      setComes(meals);
+      setState({ ...state, isFiltered: true });
     } else {
       const ENDPOINT = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
       const { drinks } = await fetch(ENDPOINT).then((response) => response.json());
-      setDrinks(drinks);
+      setBackup(bebes);
+      setBebes(drinks);
+      setState({ ...state, isFiltered: true });
     }
   };
 
   return (
     <div>
       {
-        categories.map((category, index) => {
+        state.categories.map((category, index) => {
           const MAX_LENGTH = 5;
           return index < MAX_LENGTH
             ? (
@@ -49,7 +75,7 @@ function CategoryFilters({ comesOuBebes }) {
                 data-testid={ `${category}-category-filter` }
                 key={ category }
                 type="button"
-                onClick={ () => fetchByCategory(category) }
+                onClick={ () => toggleFilter(category) }
               >
                 { category }
               </button>

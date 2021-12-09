@@ -3,33 +3,35 @@ import React, { useEffect, useState } from 'react';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const ENDPOINT_FOOD = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const ENDPOINT_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const ENDPOINT_COMES = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const ENDPOINT_BEBES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-  const [foods, setFoods] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  const [comes, setComes] = useState([]);
+  const [bebes, setBebes] = useState([]);
+  const [backup, setBackup] = useState([]);
 
   useEffect(() => {
-    const fetchFood = async () => {
-      const { meals } = await fetch(ENDPOINT_FOOD).then((response) => response.json());
-      setFoods(meals);
+    const fetchComes = async () => {
+      const { meals } = await fetch(ENDPOINT_COMES).then((response) => response.json());
+      setComes(meals);
     };
 
-    const fetchDrink = async () => {
-      const { drinks: apiDrinks } = await fetch(ENDPOINT_DRINK)
-        .then((response) => response.json());
-      setDrinks(apiDrinks);
+    const fetchBebes = async () => {
+      const { drinks } = await fetch(ENDPOINT_BEBES).then((response) => response.json());
+      setBebes(drinks);
     };
 
-    fetchFood();
-    fetchDrink();
+    fetchComes();
+    fetchBebes();
   }, []);
 
   const contextValue = {
-    foods,
-    setFoods,
-    drinks,
-    setDrinks,
+    backup,
+    setBackup,
+    comes,
+    setComes,
+    bebes,
+    setBebes,
   };
 
   return (

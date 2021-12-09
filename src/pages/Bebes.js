@@ -4,22 +4,22 @@ import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
 import CategoryFilters from '../components/CategoryFilters';
 
-function Recipes() {
-  const { foods } = useContext(RecipesContext);
+function Bebes() {
+  const { bebes } = useContext(RecipesContext);
   return (
     <div>
       <Header />
-      <CategoryFilters comesOuBebes="comes" />
+      <CategoryFilters comesOuBebes="bebes" />
       {
-        foods.map((food, index) => {
-          const { strMealThumb, strMeal } = food;
+        bebes.map((bebe, index) => {
+          const { strDrinkThumb, strDrink } = bebe;
           const MAX_LENGTH = 12;
           if (index < MAX_LENGTH) {
             return (
               <Card
-                key={ strMeal }
-                thumb={ strMealThumb }
-                name={ strMeal }
+                key={ strDrink }
+                thumb={ strDrinkThumb }
+                name={ strDrink }
                 index={ index }
               />
             );
@@ -31,4 +31,4 @@ function Recipes() {
   );
 }
 
-export default Recipes;
+export default Bebes;
