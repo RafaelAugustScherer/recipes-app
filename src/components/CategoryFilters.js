@@ -77,8 +77,26 @@ function CategoryFilters({ comesOuBebes }) {
     fetchCategories(category);
   };
 
+  const resetFilter = () => {
+    const { currentFilter } = state;
+    if (currentFilter !== '') {
+      if (comesOuBebes === 'comes') {
+        setComes(backup);
+      } else {
+        setBebes(backup);
+      }
+    }
+  };
+
   return (
     <div>
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ () => resetFilter() }
+      >
+        All
+      </button>
       {
         state.categories.map((category, index) => {
           const MAX_LENGTH = 5;
