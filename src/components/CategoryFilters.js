@@ -5,7 +5,7 @@ import RecipesContext from '../context/RecipesContext';
 function CategoryFilters({ comesOuBebes }) {
   const [state, setState] = useState({
     categories: [],
-    isFiltered: false,
+    currentFilter: '',
   });
   const {
     comes,
@@ -36,32 +36,45 @@ function CategoryFilters({ comesOuBebes }) {
     if (comesOuBebes === 'bebes') fetchBebesCategories();
   }, []);
 
-  const toggleFilter = async (category) => {
-    const { isFiltered } = state;
-    if (isFiltered && comesOuBebes === 'comes') {
-      setComes(backup);
-      setState({ ...state, isFiltered: false });
-      return null;
-    }
-    if (isFiltered && comesOuBebes === 'bebes') {
-      setBebes(backup);
-      setState({ ...state, isFiltered: false });
-      return null;
-    }
-
+  const fetchCategories = async (category) => {
     if (comesOuBebes === 'comes') {
       const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
       const { meals } = await fetch(ENDPOINT).then((response) => response.json());
-      setBackup(comes);
       setComes(meals);
-      setState({ ...state, isFiltered: true });
+      setState({ ...state, currentFilter: category });
     } else {
       const ENDPOINT = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
       const { drinks } = await fetch(ENDPOINT).then((response) => response.json());
-      setBackup(bebes);
       setBebes(drinks);
-      setState({ ...state, isFiltered: true });
+      setState({ ...state, currentFilter: category });
     }
+  };
+
+  const toggleFilter = async (category) => {
+    const { currentFilter } = state;
+
+    if (currentFilter === category) {
+      if (comesOuBebes === 'comes') {
+        setComes(backup);
+        setState({ ...state, currentFilter: '' });
+      } else {
+        setBebes(backup);
+        setState({ ...state, currentFilter: '' });
+      }
+      return null;
+    }
+
+    if (currentFilter === '') {
+      if (comesOuBebes === 'comes') {
+        setBackup(comes);
+        fetchCategories(category);
+      } else {
+        setBackup(bebes);
+        fetchCategories(category);
+      }
+      return null;
+    }
+    fetchCategories(category);
   };
 
   return (
