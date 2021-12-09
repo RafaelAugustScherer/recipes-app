@@ -48,8 +48,6 @@ function Detalhes({ match: { url } }) {
     } = refeicao;
     const strYoutubeArray = strYoutube.split('=');
     const newStrYoutube = `https://www.youtube.com/embed/${strYoutubeArray[1]}`;
-    console.log(newStrYoutube);
-    // const [, youtubeId] = strYoutube.split('=');
     return (
       <>
         <img
@@ -71,6 +69,7 @@ function Detalhes({ match: { url } }) {
         <p data-testid="instructions">{ strInstructions }</p>
         <h2>Video</h2>
         <iframe
+          data-testid="video"
           width="200"
           height="300"
           src={ newStrYoutube }
@@ -82,17 +81,17 @@ function Detalhes({ match: { url } }) {
         { /* thumb, name, index, url, id */ }
         <h2>Recomendadas</h2>
         { recomendadas
-          .map(({ strMealThumb: innerMealThumb, strMeal: innerMeal, idMeal }, index) => (
-            <Card
+          .map(({ strDrinkThumb, strDrink, idDrink }, index) => {
+            return (<Card
               data-testid={ `${index}-recomendation-card` }
-              key={ innerMeal }
-              thumb={ innerMealThumb }
-              name={ innerMeal }
+              key={ strDrink }
+              thumb={ strDrinkThumb }
+              name={ strDrink }
               index={ index }
-              id={ idMeal }
-              url="comidas"
-            />
-          )) }
+              id={ idDrink }
+              url="bebidas"
+            />);
+          }) }
         <button
           data-testid="start-recipe-btn"
           type="button"
