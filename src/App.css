@@ -10,13 +10,42 @@
   width: 100%;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.img-details {
+  width: 250px;
+}
+
+.instructions {
+  max-width: 100%;
+}
+
+.carrossel {
+  height: 300px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.card-recomendations {
+  border: 1px solid black;
+  display: inline-block;
+  width: 200px;
+}
+
+.img-recomendations {
+  max-height: 80%;
+  max-width: 80%;
 }
 
 .card {
   max-width: 200px;
+}
+
+
+.start-recipe-btn {
+  bottom: 0;
+  left: 0;
+  margin: 20px;
+  position: fixed;
 }
 
 /*
@@ -32,46 +61,3 @@
   transform-origin: 60px 78px;
 }
 */
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-}
-
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
-}
-
-footer {
-  bottom: 0;
-  position: fixed;
-}
