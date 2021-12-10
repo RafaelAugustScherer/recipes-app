@@ -40,7 +40,8 @@ function Detalhes({ match: { url, params: { id } } }) {
         const li = (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ ingredient }>
+            key={ ingredient }
+          >
             { ingredient }
             { ' - ' }
             { measure }
