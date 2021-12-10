@@ -12,6 +12,10 @@ import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
+import ComidaIngredientes from './pages/ComidaIngrediente';
+import BebidaIngredientes from './pages/BebidaIngrediente';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import ReceitasFeitas from './pages/ReceitasFeitas';
 
 function App() {
   return (
@@ -21,12 +25,24 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Comes } />
           <Route exact path="/bebidas" component={ Bebes } />
-          <Route exac t path="/comidas/:id" component={ Detalhes } />
+          <Route exact path="/comidas/:id" component={ Detalhes } />
           <Route exact path="/bebidas/:id" component={ Detalhes } />
           <Route exact path="/perfil" component={ Perfil } />
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ComidaIngredientes }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ BebidaIngredientes }
+          />
+          <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         </Switch>
       </RecipesProvider>
     </BrowserRouter>

@@ -1,10 +1,15 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ExplorarBebidas() {
   return (
-    <div>
-      ExplorarBebidas
-    </div>
+    <>
+      <Header title="Explorar Bebidas" />
+      <div>
+        ExplorarBebidas
+      </div>
+
+    </>
   );
 }
 

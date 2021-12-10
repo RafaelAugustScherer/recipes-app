@@ -1,10 +1,14 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ComidaArea() {
   return (
-    <div>
-      Comida Area
-    </div>
+    <>
+      <Header title="Explorar Origem" />
+      <div>
+        Comida Area
+      </div>
+    </>
   );
 }
 

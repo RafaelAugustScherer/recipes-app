@@ -1,15 +1,16 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function ExplorarComidas() {
+function ReceitasFeitas() {
   return (
     <>
-      <Header title="Explorar Comidas" />
+      <Header title="Receitas Feitas" />
       <div>
-        ExplorarComidas
+        Receitas Feitas
       </div>
+
     </>
   );
 }
 
-export default ExplorarComidas;
+export default ReceitasFeitas;

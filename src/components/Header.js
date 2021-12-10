@@ -18,6 +18,7 @@ function Header({ title }) {
         <p>{ title }</p>
       </div>
       <button
+        src={ searchIcon }
         type="button"
         data-testid="search-top-btn"
         onClick={ () => setBusca(!isBusca) }
