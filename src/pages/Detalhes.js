@@ -75,6 +75,7 @@ function Detalhes({ match: { url, params: { id } } }) {
           data-testid="recipe-photo"
           src={ strMealThumb }
           alt="Recipe"
+          className="img-details"
         />
         <p data-testid="recipe-title">{ strMeal }</p>
         <p data-testid="recipe-category">{ strCategory }</p>
@@ -87,7 +88,7 @@ function Detalhes({ match: { url, params: { id } } }) {
         <h2>Ingredients</h2>
         { renderIngredients() }
         <h2>Instructions</h2>
-        <p data-testid="instructions">{ strInstructions }</p>
+        <p data-testid="instructions" className="instructions">{ strInstructions }</p>
         <h2>Video</h2>
         <iframe
           data-testid="video"
@@ -100,17 +101,19 @@ function Detalhes({ match: { url, params: { id } } }) {
           allowFullScreen
         />
         <h2>Recomendadas</h2>
-        { recomendadas
-          .map(({ strDrinkThumb, strDrink, idDrink }, index) => (
-            <CardRecomendacao
-              key={ strDrink }
-              thumb={ strDrinkThumb }
-              name={ strDrink }
-              index={ index }
-              id={ idDrink }
-              url="bebidas"
-            />
-          )) }
+        <div className="carrossel">
+          { recomendadas
+            .map(({ strDrinkThumb, strDrink, idDrink }, index) => (
+              <CardRecomendacao
+                key={ strDrink }
+                thumb={ strDrinkThumb }
+                name={ strDrink }
+                index={ index }
+                id={ idDrink }
+                url="bebidas"
+              />
+            )) }
+        </div>
         <button
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
@@ -151,17 +154,19 @@ function Detalhes({ match: { url, params: { id } } }) {
         <h2>Instructions</h2>
         <p data-testid="instructions">{ strInstructions }</p>
         <h2>Recomendadas</h2>
-        { recomendadas
-          .map(({ strMealThumb, strMeal, idMeal }, index) => (
-            <CardRecomendacao
-              key={ strMeal }
-              thumb={ strMealThumb }
-              name={ strMeal }
-              index={ index }
-              id={ idMeal }
-              url="bebidas"
-            />
-          )) }
+        <div className="carrossel">
+          { recomendadas
+            .map(({ strMealThumb, strMeal, idMeal }, index) => (
+              <CardRecomendacao
+                key={ strMeal }
+                thumb={ strMealThumb }
+                name={ strMeal }
+                index={ index }
+                id={ idMeal }
+                url="bebidas"
+              />
+            )) }
+        </div>
         <button
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
@@ -175,7 +180,6 @@ function Detalhes({ match: { url, params: { id } } }) {
 
   return (
     <div>
-      Página de Detalhes
       { comesOuBebes === 'comes' ? renderCome() : renderBebe() }
     </div>
   );

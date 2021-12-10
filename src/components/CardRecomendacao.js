@@ -9,8 +9,13 @@ function CardRecomendacao({ thumb, name, index, url, id }) {
       to={ `/${url}/${id}` }
       className="card-recomendations"
     >
-      <img data-testid={ `${index}-card-img` } src={ thumb } alt={ name } />
-      <p data-testid={ `${index}-card-name` }>{ name }</p>
+      <img
+        data-testid={ `${index}-card-img` }
+        src={ thumb }
+        alt={ name }
+        className="img-recomendations"
+      />
+      <p data-testid={ `${index}-recomendation-title` }>{ name }</p>
     </Link>
   );
 }

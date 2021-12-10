@@ -10,9 +10,32 @@
   width: 100%;
 }
 
+.img-details {
+  width: 250px;
+}
+
+.instructions {
+  max-width: 100%;
+}
+
+.carrossel {
+  /* overflow-x: scroll; */
+  /* width: inherit; */
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 300px;
+  white-space: nowrap; 
+}
 
 .card-recomendations {
-  max-width: 10%;
+  display: inline-block;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.img-recomendations {
+  max-width: 80%;
+  max-height: 80%;
 }
 
 .card {
@@ -24,7 +47,7 @@
   bottom: 0;
   margin: 20px;
   position: fixed;
-  right: 0;
+  left: 0;
 }
 
 /*
