@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import MenuInferior from '../components/MenuInferior';
 
 function BebidasIngredientes() {
   return (
@@ -8,6 +9,7 @@ function BebidasIngredientes() {
       <div>
         Bebidas Ingredientes
       </div>
+      <MenuInferior />
     </>
   );
 }
