@@ -6,7 +6,7 @@ function ReceitasFavoritas() {
     <>
       <Header title="Receitas Favoritas" />
       <div>
-        ExplorarComidas
+        Receitas Favoritas
       </div>
     </>
   );
