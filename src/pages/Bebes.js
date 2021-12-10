@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
 import CategoryFilters from '../components/CategoryFilters';
+import MenuInferior from '../components/MenuInferior';
 
 function Bebes() {
   const { bebes } = useContext(RecipesContext);
@@ -29,6 +30,7 @@ function Bebes() {
           return null;
         })
       }
+      <MenuInferior />
     </div>
   );
 }

@@ -19,23 +19,21 @@
 }
 
 .carrossel {
-  /* overflow-x: scroll; */
-  /* width: inherit; */
+  height: 300px;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 300px;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 .card-recomendations {
+  border: 1px solid black;
   display: inline-block;
   width: 200px;
-  border: 1px solid black;
 }
 
 .img-recomendations {
-  max-width: 80%;
   max-height: 80%;
+  max-width: 80%;
 }
 
 .card {
@@ -45,9 +43,9 @@
 
 .start-recipe-btn {
   bottom: 0;
+  left: 0;
   margin: 20px;
   position: fixed;
-  left: 0;
 }
 
 /*
