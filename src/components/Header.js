@@ -1,21 +1,36 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
+import BarradeBusca from './BarradeBusca';
 
-function Header() {
+function Header({ title }) {
+  const [isBusca, setBusca] = useState(false);
+
   return (
     <header>
-      <div data-testid="profile-top-btn">
-        <img src={ profileIcon } alt="profile icon" />
-      </div>
+
+      <Link to="/perfil">
+        <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
+      </Link>
       <div data-testid="page-title">
-        <p>Title</p>
+        <p>{ title }</p>
       </div>
-      <div data-testid="search-top-btn">
+      <button
+        type="button"
+        data-testid="search-top-btn"
+        onClick={ () => setBusca(!isBusca) }
+      >
         <img src={ searchIcon } alt="profile icon" />
-      </div>
+      </button>
+      {isBusca && <BarradeBusca />}
     </header>
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Header;
