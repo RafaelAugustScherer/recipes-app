@@ -39,7 +39,7 @@ function Detalhes({ match: { url, params: { id } } }) {
       if (ingredient) {
         const li = (
           <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
+            data-testid={ `${index - 1}-ingredient-name-and-measure` }
             key={ ingredient }
           >
             { ingredient }
