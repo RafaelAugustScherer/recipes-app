@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import Card from '../components/Card';
 import UseRecipe from '../hooks/UseRecipe';
+import CardRecomendacao from '../components/CardRecomendacao';
 
 function Detalhes({ match: { url, params: { id } } }) {
   let [, comesOuBebes] = url.split('/');
@@ -102,8 +102,7 @@ function Detalhes({ match: { url, params: { id } } }) {
         <h2>Recomendadas</h2>
         { recomendadas
           .map(({ strDrinkThumb, strDrink, idDrink }, index) => (
-            <Card
-              data-testid={ `${index}-recomendation-card` }
+            <CardRecomendacao
               key={ strDrink }
               thumb={ strDrinkThumb }
               name={ strDrink }
@@ -154,8 +153,7 @@ function Detalhes({ match: { url, params: { id } } }) {
         <h2>Recomendadas</h2>
         { recomendadas
           .map(({ strMealThumb, strMeal, idMeal }, index) => (
-            <Card
-              data-testid={ `${index}-recomendation-card` }
+            <CardRecomendacao
               key={ strMeal }
               thumb={ strMealThumb }
               name={ strMeal }
