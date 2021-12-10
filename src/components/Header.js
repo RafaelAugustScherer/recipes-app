@@ -7,25 +7,29 @@ import BarradeBusca from './BarradeBusca';
 
 function Header({ title }) {
   const [isBusca, setBusca] = useState(false);
+  const buscaDisponivel = ['Comidas', 'Bebidas', 'Explorar Origem'];
 
   return (
     <header>
-
       <Link to="/perfil">
         <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
       </Link>
       <div data-testid="page-title">
         <p>{ title }</p>
       </div>
-      <button
-        src={ searchIcon }
-        type="button"
-        data-testid="search-top-btn"
-        onClick={ () => setBusca(!isBusca) }
-      >
-        <img src={ searchIcon } alt="profile icon" />
-      </button>
-      {isBusca && <BarradeBusca />}
+      { buscaDisponivel.includes(title) && (
+        <>
+          <button
+            type="button"
+            src={ searchIcon }
+            data-testid="search-top-btn"
+            onClick={ () => setBusca(!isBusca) }
+          >
+            <img src={ searchIcon } alt="profile icon" />
+          </button>
+          {isBusca && <BarradeBusca />}
+        </>
+      )}
     </header>
   );
 }
