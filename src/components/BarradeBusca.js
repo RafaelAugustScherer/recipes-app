@@ -1,30 +1,46 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import UseRecipe from '../hooks/UseRecipe';
 
-function BarradeBusca({ match: { url } }) {
+function BarradeBusca({ comesOuBebes }) {
   const INGREDIENTE = 'Ingrediente';
   const NOME = 'Nome';
   const PRIMEIRA_LETRA = 'Primeira Letra';
 
-  let urlArray = url.split('/');
-  const comesOuBebes = urlArray.includes('comidas') ? 'comes' : 'bebes';
-
   const [value, setValue] = useState('');
   const [filter, setFilter] = useState(INGREDIENTE);
-  const { setFood } = useContext(RecipesContext);
-  const { fetchRecipesByIngredient } = UseRecipe();
+  const { comes, setComes, bebes, setBebes } = useContext(RecipesContext);
+  const {
+    fetchRecipesByIngredient,
+    fetchRecipesByName,
+    fetchRecipesByFirstLetter,
+  } = UseRecipe();
 
   const handleSearch = async () => {
+    let newFood = comesOuBebes === 'comes' ? [...comes] : [...bebes];
     switch (filter) {
     case INGREDIENTE: {
-      const food = await fetchRecipesByIngredient('comes', value);
-      setFood(food);
-    }
+      newFood = await fetchRecipesByIngredient(comesOuBebes, value);
       break;
-    default:
-      return 0;
     }
+    case NOME: {
+      newFood = await fetchRecipesByName(comesOuBebes, value);
+      break;
+    }
+    case PRIMEIRA_LETRA: {
+      if (value.length > 1) {
+        global.alert('Sua busca deve conter somente 1 (um) caracter');
+        return null;
+      }
+      newFood = await fetchRecipesByFirstLetter(comesOuBebes, value);
+      break;
+    }
+    default:
+      return null;
+    }
+    if (comesOuBebes === 'comes') setComes(newFood);
+    else setBebes(newFood);
   };
 
   return (
@@ -42,7 +58,7 @@ function BarradeBusca({ match: { url } }) {
           id="ingrediente"
           value={ INGREDIENTE }
           checked={ filter === INGREDIENTE }
-          onClick={ () => setFilter(INGREDIENTE) }
+          onChange={ () => setFilter(INGREDIENTE) }
         />
       </label>
       Ingrediente
@@ -53,7 +69,7 @@ function BarradeBusca({ match: { url } }) {
           id="nome"
           value={ NOME }
           checked={ filter === NOME }
-          onClick={ () => setFilter(NOME) }
+          onChange={ () => setFilter(NOME) }
         />
         Nome
       </label>
@@ -64,7 +80,7 @@ function BarradeBusca({ match: { url } }) {
           id="primeira-letra"
           value={ PRIMEIRA_LETRA }
           checked={ filter === PRIMEIRA_LETRA }
-          onClick={ () => setFilter(PRIMEIRA_LETRA) }
+          onChange={ () => setFilter(PRIMEIRA_LETRA) }
         />
         Primeira Letra
       </label>
@@ -78,5 +94,9 @@ function BarradeBusca({ match: { url } }) {
     </div>
   );
 }
+
+BarradeBusca.propTypes = {
+  comesOuBebes: PropTypes.string,
+}.isRequired;
 
 export default BarradeBusca;

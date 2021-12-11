@@ -9,7 +9,7 @@ function Comes() {
   const { comes } = useContext(RecipesContext);
   return (
     <>
-      <Header title="Comidas" />
+      <Header title="Comidas" comesOuBebes="comes" />
       <div>
         <CategoryFilters comesOuBebes="comes" />
         {

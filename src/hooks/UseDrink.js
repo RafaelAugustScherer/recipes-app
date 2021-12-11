@@ -14,10 +14,22 @@ function UseDrink() {
     return drinks;
   };
 
+  const fetchDrinksByName = async (name) => {
+    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`).then((response) => response.json());
+    return drinks;
+  };
+
+  const fetchDrinksByFirstLetter = async (letter) => {
+    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`).then((response) => response.json());
+    return drinks;
+  };
+
   return {
     fetchDrinks,
     fetchDrinkById,
     fetchDrinksByIngredient,
+    fetchDrinksByName,
+    fetchDrinksByFirstLetter,
   };
 }
 

@@ -5,7 +5,7 @@ import MenuInferior from '../components/MenuInferior';
 function ExplorarComidasArea() {
   return (
     <>
-      <Header title="Explorar Origem" />
+      <Header title="Explorar Origem" comesOuBebes="comes" />
       <div>
         ExplorarComidasArea
       </div>

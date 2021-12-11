@@ -1,41 +1,64 @@
 import UseDrink from './UseDrink';
 import UseMeal from './UseMeal';
 
-function UseRecipe(maxLength) {
-  const { fetchMeals, fetchMealById, fetchMealsByIngredient } = UseMeal();
-  const { fetchDrinks, fetchDrinkById, fetchDrinksByIngredient } = UseDrink();
+const {
+  fetchMeals,
+  fetchMealById,
+  fetchMealsByIngredient,
+  fetchMealsByName,
+  fetchMealsByFirstLetter,
+} = UseMeal();
 
+const {
+  fetchDrinks,
+  fetchDrinkById,
+  fetchDrinksByIngredient,
+  fetchDrinksByName,
+  fetchDrinksByFirstLetter,
+} = UseDrink();
+
+function UseRecipe(maxLength) {
   const fetchRecipes = async (comesOuBebes) => {
-    if (comesOuBebes === 'comes') {
-      const meals = await fetchMeals(maxLength);
-      return meals;
-    }
-    const drinks = await fetchDrinks(maxLength);
-    return drinks;
+    const recipes = comesOuBebes === 'comes'
+      ? await fetchMeals(maxLength)
+      : await fetchDrinks(maxLength);
+    return recipes;
   };
 
   const fetchRecipeById = async (comesOuBebes, id) => {
-    if (comesOuBebes === 'comes') {
-      const meal = await fetchMealById(id);
-      return meal;
-    }
-    const drink = await fetchDrinkById(id);
-    return drink;
+    const recipes = comesOuBebes === 'comes'
+      ? await fetchMealById(id)
+      : await fetchDrinkById(id);
+    return recipes;
   };
 
   const fetchRecipesByIngredient = async (comesOuBebes, ingredient) => {
-    if (comesOuBebes === 'comes') {
-      const meal = await fetchMealsByIngredient(ingredient);
-      return meal;
-    }
-    const drink = await fetchDrinksByIngredient(ingredient);
-    return drink;
+    const recipes = comesOuBebes === 'comes'
+      ? await fetchMealsByIngredient(ingredient)
+      : await fetchDrinksByIngredient(ingredient);
+    return recipes;
+  };
+
+  const fetchRecipesByName = async (comesOuBebes, name) => {
+    const recipes = comesOuBebes === 'comes'
+      ? await fetchMealsByName(name)
+      : await fetchDrinksByName(name);
+    return recipes;
+  };
+
+  const fetchRecipesByFirstLetter = async (comesOuBebes, letter) => {
+    const recipes = comesOuBebes === 'comes'
+      ? await fetchMealsByFirstLetter(letter)
+      : await fetchDrinksByFirstLetter(letter);
+    return recipes;
   };
 
   return {
     fetchRecipes,
     fetchRecipeById,
     fetchRecipesByIngredient,
+    fetchRecipesByName,
+    fetchRecipesByFirstLetter,
   };
 }
 
