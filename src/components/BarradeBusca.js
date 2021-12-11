@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import UseRecipe from '../hooks/UseRecipe';
@@ -16,6 +17,7 @@ function BarradeBusca({ comesOuBebes }) {
     fetchRecipesByName,
     fetchRecipesByFirstLetter,
   } = UseRecipe();
+  const history = useHistory();
 
   const handleSearch = async () => {
     let newFood = comesOuBebes === 'comes' ? [...comes] : [...bebes];
@@ -39,8 +41,18 @@ function BarradeBusca({ comesOuBebes }) {
     default:
       return null;
     }
-    if (comesOuBebes === 'comes') setComes(newFood);
-    else setBebes(newFood);
+    if (newFood === null) {
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return null;
+    }
+
+    if (comesOuBebes === 'comes') {
+      if (newFood.length === 1) history.push(`/comidas/${newFood[0].idMeal}`);
+      setComes(newFood);
+    } else {
+      if (newFood.length === 1) history.push(`/bebidas/${newFood[0].idDrink}`);
+      setBebes(newFood);
+    }
   };
 
   return (
