@@ -11,7 +11,7 @@ function MenuInferior() {
       <Link to="/bebidas">
         <img src={ drinkIcon } data-testid="drinks-bottom-btn" alt="drink icon" />
       </Link>
-      <Link to="/">
+      <Link to="/explorar">
         <img src={ exploreIcon } alt="explore icon" data-testid="explore-bottom-btn" />
       </Link>
       <Link to="/comidas">
