@@ -2,8 +2,8 @@ import UseDrink from './UseDrink';
 import UseMeal from './UseMeal';
 
 function UseRecipe(maxLength) {
-  const { fetchMeals, fetchMealById } = UseMeal();
-  const { fetchDrinks, fetchDrinkById } = UseDrink();
+  const { fetchMeals, fetchMealById, fetchMealsByIngredient } = UseMeal();
+  const { fetchDrinks, fetchDrinkById, fetchDrinksByIngredient } = UseDrink();
 
   const fetchRecipes = async (comesOuBebes) => {
     if (comesOuBebes === 'comes') {
@@ -17,16 +17,25 @@ function UseRecipe(maxLength) {
   const fetchRecipeById = async (comesOuBebes, id) => {
     if (comesOuBebes === 'comes') {
       const meal = await fetchMealById(id);
-      console.log(meal);
       return meal;
     }
     const drink = await fetchDrinkById(id);
     return drink;
   };
 
+  const fetchRecipesByIngredient = async (comesOuBebes, ingredient) => {
+    if (comesOuBebes === 'comes') {
+      const meal = await fetchMealsByIngredient(ingredient);
+      return meal;
+    }
+    const drink = await fetchDrinksByIngredient(ingredient);
+    return drink;
+  };
+
   return {
     fetchRecipes,
     fetchRecipeById,
+    fetchRecipesByIngredient,
   };
 }
 

@@ -9,9 +9,15 @@ function UseMeal() {
     return meals[0];
   };
 
+  const fetchMealsByIngredient = async (ingredient) => {
+    const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
+    return meals;
+  };
+
   return {
     fetchMeals,
     fetchMealById,
+    fetchMealsByIngredient,
   };
 }
 

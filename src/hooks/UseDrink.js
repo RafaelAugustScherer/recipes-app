@@ -9,9 +9,15 @@ function UseDrink() {
     return drinks[0];
   };
 
+  const fetchDrinksByIngredient = async (ingredient) => {
+    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
+    return drinks;
+  };
+
   return {
     fetchDrinks,
     fetchDrinkById,
+    fetchDrinksByIngredient,
   };
 }
 
