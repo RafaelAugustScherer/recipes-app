@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import clipboardCopy from 'clipboard-copy';
+import { Toast } from 'react-bootstrap';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import UseRecipe from '../hooks/UseRecipe';
+import useFavorite from '../hooks/useFavorite';
 import CardRecomendacao from '../components/CardRecomendacao';
 
 function Detalhes({ match: { url, params: { id } } }) {
   let [, comesOuBebes] = url.split('/');
+
+  const { favorite, handleFavorite } = useFavorite(id);
 
   if (comesOuBebes === 'comidas') comesOuBebes = 'comes';
   if (comesOuBebes === 'bebidas') comesOuBebes = 'bebes';
@@ -15,6 +21,7 @@ function Detalhes({ match: { url, params: { id } } }) {
   const { fetchRecipes, fetchRecipeById } = UseRecipe(MAX_LENGTH);
   const [refeicao, setRefeicao] = useState({});
   const [recomendadas, setRecomendadas] = useState([]);
+  const [shareToast, setShareToast] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,11 +86,22 @@ function Detalhes({ match: { url, params: { id } } }) {
         />
         <p data-testid="recipe-title">{ strMeal }</p>
         <p data-testid="recipe-category">{ strCategory }</p>
-        <button data-testid="share-btn" type="button">
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ () => {
+            clipboardCopy(window.location.href);
+            setShareToast(true);
+          } }
+        >
           <img src={ shareIcon } alt="share" />
         </button>
-        <button data-testid="favorite-btn" type="button">
-          <img src={ whiteHeartIcon } alt="share" />
+        <button
+          data-testid="favorite-btn"
+          type="button"
+          onClick={ () => handleFavorite('comida') }
+        >
+          <img src={ favorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
         </button>
         <h2>Ingredients</h2>
         { renderIngredients() }
@@ -144,11 +162,22 @@ function Detalhes({ match: { url, params: { id } } }) {
         />
         <p data-testid="recipe-title">{ strDrink }</p>
         <p data-testid="recipe-category">{ `${strCategory} ${strAlcoholic}` }</p>
-        <button data-testid="share-btn" type="button">
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ () => {
+            clipboardCopy(window.location.href);
+            setShareToast(true);
+          } }
+        >
           <img src={ shareIcon } alt="share" />
         </button>
-        <button data-testid="favorite-btn" type="button">
-          <img src={ whiteHeartIcon } alt="share" />
+        <button
+          data-testid="favorite-btn"
+          type="button"
+          onClick={ () => handleFavorite('bebida') }
+        >
+          <img src={ favorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
         </button>
         <h2>Ingredients</h2>
         { renderIngredients() }
@@ -181,6 +210,14 @@ function Detalhes({ match: { url, params: { id } } }) {
 
   return (
     <div>
+      <Toast
+        onClose={ () => setShareToast(false) }
+        show={ shareToast }
+        delay={ 3000 }
+        autohide
+      >
+        <p>Link copiado!</p>
+      </Toast>
       { comesOuBebes === 'comes' ? renderCome() : renderBebe() }
     </div>
   );
