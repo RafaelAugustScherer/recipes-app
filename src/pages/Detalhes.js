@@ -132,6 +132,7 @@ function Detalhes({ match: { url, params: { id } } }) {
       strDrinkThumb,
       strCategory,
       strInstructions,
+      strAlcoholic,
     } = refeicao;
 
     return (
@@ -142,7 +143,7 @@ function Detalhes({ match: { url, params: { id } } }) {
           alt="Recipe"
         />
         <p data-testid="recipe-title">{ strDrink }</p>
-        <p data-testid="recipe-category">{ strCategory }</p>
+        <p data-testid="recipe-category">{ `${strCategory} ${strAlcoholic}` }</p>
         <button data-testid="share-btn" type="button">
           <img src={ shareIcon } alt="share" />
         </button>
