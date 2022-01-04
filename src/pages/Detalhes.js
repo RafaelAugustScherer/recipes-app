@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import clipboardCopy from 'clipboard-copy';
 import { Toast } from 'react-bootstrap';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import UseRecipe from '../hooks/UseRecipe';
-import useFavorite from '../hooks/useFavorite';
-import CardRecomendacao from '../components/CardRecomendacao';
+import Come from '../components/Come';
+import Bebe from '../components/Bebe';
 
 function Detalhes({ match: { url, params: { id } } }) {
   let [, comesOuBebes] = url.split('/');
-
-  const { favorite, handleFavorite } = useFavorite(id);
 
   if (comesOuBebes === 'comidas') comesOuBebes = 'comes';
   if (comesOuBebes === 'bebidas') comesOuBebes = 'bebes';
@@ -64,148 +58,12 @@ function Detalhes({ match: { url, params: { id } } }) {
     );
   };
 
-  const renderCome = () => {
-    if (Object.keys(refeicao).length === 0) return null;
-    const {
-      strMeal,
-      strMealThumb,
-      strCategory,
-      strInstructions,
-      strYoutube,
-    } = refeicao;
-
-    const strYoutubeArray = strYoutube.split('=');
-    const newStrYoutube = `https://www.youtube.com/embed/${strYoutubeArray[1]}`;
-    return (
-      <>
-        <img
-          data-testid="recipe-photo"
-          src={ strMealThumb }
-          alt="Recipe"
-          className="img-details"
-        />
-        <p data-testid="recipe-title">{ strMeal }</p>
-        <p data-testid="recipe-category">{ strCategory }</p>
-        <button
-          data-testid="share-btn"
-          type="button"
-          onClick={ () => {
-            clipboardCopy(window.location.href);
-            setShareToast(true);
-          } }
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
-        <button
-          data-testid="favorite-btn"
-          type="button"
-          onClick={ () => handleFavorite('comida') }
-        >
-          <img src={ favorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
-        </button>
-        <h2>Ingredients</h2>
-        { renderIngredients() }
-        <h2>Instructions</h2>
-        <p data-testid="instructions" className="instructions">{ strInstructions }</p>
-        <h2>Video</h2>
-        <iframe
-          data-testid="video"
-          width="200"
-          height="300"
-          src={ newStrYoutube }
-          title={ strMeal }
-          frameBorder="0"
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-          allowFullScreen
-        />
-        <h2>Recomendadas</h2>
-        <div className="carrossel">
-          { recomendadas
-            .map(({ strDrinkThumb, strDrink, idDrink }, index) => (
-              <CardRecomendacao
-                key={ strDrink }
-                thumb={ strDrinkThumb }
-                name={ strDrink }
-                index={ index }
-                id={ idDrink }
-                url="bebidas"
-              />
-            )) }
-        </div>
-        <button
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-          type="button"
-        >
-          Iniciar Receita
-        </button>
-      </>
-    );
-  };
-
-  const renderBebe = () => {
-    if (Object.keys(refeicao).length === 0) return null;
-    const {
-      strDrink,
-      strDrinkThumb,
-      strCategory,
-      strInstructions,
-      strAlcoholic,
-    } = refeicao;
-
-    return (
-      <>
-        <img
-          data-testid="recipe-photo"
-          src={ strDrinkThumb }
-          alt="Recipe"
-        />
-        <p data-testid="recipe-title">{ strDrink }</p>
-        <p data-testid="recipe-category">{ `${strCategory} ${strAlcoholic}` }</p>
-        <button
-          data-testid="share-btn"
-          type="button"
-          onClick={ () => {
-            clipboardCopy(window.location.href);
-            setShareToast(true);
-          } }
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
-        <button
-          data-testid="favorite-btn"
-          type="button"
-          onClick={ () => handleFavorite('bebida') }
-        >
-          <img src={ favorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
-        </button>
-        <h2>Ingredients</h2>
-        { renderIngredients() }
-        <h2>Instructions</h2>
-        <p data-testid="instructions">{ strInstructions }</p>
-        <h2>Recomendadas</h2>
-        <div className="carrossel">
-          { recomendadas
-            .map(({ strMealThumb, strMeal, idMeal }, index) => (
-              <CardRecomendacao
-                key={ strMeal }
-                thumb={ strMealThumb }
-                name={ strMeal }
-                index={ index }
-                id={ idMeal }
-                url="bebidas"
-              />
-            )) }
-        </div>
-        <button
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-          type="button"
-        >
-          Iniciar Receita
-        </button>
-      </>
-    );
+  const props = {
+    refeicao,
+    recomendadas,
+    id,
+    setShareToast,
+    renderIngredients,
   };
 
   return (
@@ -218,7 +76,7 @@ function Detalhes({ match: { url, params: { id } } }) {
       >
         <p>Link copiado!</p>
       </Toast>
-      { comesOuBebes === 'comes' ? renderCome() : renderBebe() }
+      { comesOuBebes === 'comes' ? <Come { ...props } /> : <Bebe { ...props } />}
     </div>
   );
 }
