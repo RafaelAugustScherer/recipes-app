@@ -39,11 +39,14 @@ function Bebe({ refeicao, recomendadas, id, setShareToast, renderIngredients }) 
         <img src={ shareIcon } alt="share" />
       </button>
       <button
-        data-testid="favorite-btn"
         type="button"
         onClick={ () => handleFavorite('bebida') }
       >
-        <img src={ favorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
+        <img
+          data-testid="favorite-btn"
+          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite"
+        />
       </button>
       <h2>Ingredients</h2>
       { renderIngredients() }

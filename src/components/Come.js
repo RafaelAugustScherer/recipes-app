@@ -44,11 +44,14 @@ function Come({ refeicao, recomendadas, id, setShareToast, renderIngredients }) 
         <img src={ shareIcon } alt="share" />
       </button>
       <button
-        data-testid="favorite-btn"
         type="button"
         onClick={ () => handleFavorite('comida') }
       >
-        <img src={ favorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
+        <img
+          data-testid="favorite-btn"
+          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite"
+        />
       </button>
       <h2>Ingredients</h2>
       { renderIngredients() }

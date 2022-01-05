@@ -17,21 +17,35 @@ function useFavorite(id) {
 
   const [favorite, setFavorite] = useState(isFavorite());
 
-  const addFavorite = async (type) => {
-    const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const comesOuBebes = type === 'comida' ? 'comes' : 'bebes';
-    const newFavorite = await fetchRecipeById(comesOuBebes, id);
-
-    const alcoholicOrNot = newFavorite.strAlcoholic ? newFavorite.strAlcoholic : '';
+  const addComida = (newFavorite) => {
     const {
       strMeal: name,
       strArea: area,
       strMealThumb: image,
       strCategory: category } = newFavorite;
+    return { name, area, image, category, alcoholicOrNot: '' };
+  };
+
+  const addBebida = (newFavorite) => {
+    const {
+      strDrink: name,
+      strDrinkThumb: image,
+      strCategory: category,
+      strAlcoholic: alcoholicOrNot } = newFavorite;
+    return { name, area: '', image, category, alcoholicOrNot };
+  };
+
+  const addFavorite = async (type) => {
+    const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const comesOuBebes = type === 'comida' ? 'comes' : 'bebes';
+    let newFavorite = await fetchRecipeById(comesOuBebes, id);
+
+    newFavorite = comesOuBebes === 'comes'
+      ? addComida(newFavorite) : addBebida(newFavorite);
 
     const newFavorites = [
       ...currentFavorites,
-      { id, name, type, area, image, category, alcoholicOrNot },
+      { id, type, ...newFavorite },
     ];
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
     setFavorite(true);
@@ -64,3 +78,11 @@ function useFavorite(id) {
 }
 
 export default useFavorite;
+
+/* id: '178319',
+        type: 'bebida',
+        area: '',
+        category: 'Cocktail',
+        alcoholicOrNot: 'Alcoholic',
+        name: 'Aquamarine',
+        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg' */
