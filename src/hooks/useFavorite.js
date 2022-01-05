@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import UseRecipe from './UseRecipe';
 
 function useFavorite(id) {
   const { fetchRecipeById } = UseRecipe();
 
-  const isFavorite = () => {
+  const isFavorite = useCallback(() => {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
@@ -13,9 +13,13 @@ function useFavorite(id) {
 
     return !!currentFavorites
       .find(({ id: favoriteId }) => favoriteId === id);
-  };
+  }, [id]);
 
   const [favorite, setFavorite] = useState(isFavorite());
+
+  useEffect(() => {
+    setFavorite(isFavorite());
+  }, [isFavorite]);
 
   const addComida = (newFavorite) => {
     const {

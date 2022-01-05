@@ -34,6 +34,7 @@ function CategoryFilters({ comesOuBebes }) {
 
     if (comesOuBebes === 'comes') fetchComesCategories();
     if (comesOuBebes === 'bebes') fetchBebesCategories();
+    // eslint-disable-next-line
   }, []);
 
   const fetchCategories = async (category) => {

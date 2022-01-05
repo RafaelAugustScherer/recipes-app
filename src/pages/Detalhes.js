@@ -15,8 +15,6 @@ function Detalhes({ match: { url } }) {
     setIsInProgress } = useContext(DetailsContext);
   let [, comesOuBebes] = url.split('/');
   const [, , urlId, progressUrl] = url.split('/');
-  setIsInProgress(progressUrl);
-  setId(urlId);
   if (comesOuBebes === 'comidas') comesOuBebes = 'comes';
   if (comesOuBebes === 'bebidas') comesOuBebes = 'bebes';
 
@@ -25,6 +23,9 @@ function Detalhes({ match: { url } }) {
   const [shareToast, setShareToast] = useState(false);
 
   useEffect(() => {
+    setIsInProgress(progressUrl);
+    setId(urlId);
+
     const fetchData = async () => {
       const newRefeicao = await fetchRecipeById(comesOuBebes, urlId);
       const newRecomendadas = await fetchRecipes(
@@ -34,7 +35,12 @@ function Detalhes({ match: { url } }) {
       setRecomendadas(newRecomendadas);
     };
     fetchData();
+    // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    setIsInProgress(progressUrl);
+  }, [progressUrl, setIsInProgress]);
 
   const props = {
     setShareToast,
@@ -51,9 +57,7 @@ function Detalhes({ match: { url } }) {
         <p>Link copiado!</p>
       </Toast>
       { comesOuBebes === 'comes' ? <Come { ...props } /> : <Bebe { ...props } />}
-      <BotaoReceita
-        url={ url }
-      />
+      <BotaoReceita url={ url } />
     </div>
   );
 }

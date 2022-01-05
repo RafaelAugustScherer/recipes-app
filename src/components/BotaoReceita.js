@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import DetailsContext from '../context/DetailsContext';
 
 function BotaoReceita({ url }) {
-  const [progresso, setProgresso] = useState('não iniciado');
+  const [progresso] = useState('não iniciado');
   const { ingredientes, totalIngredientes, isInProgress } = useContext(DetailsContext);
   const history = useHistory();
   return (

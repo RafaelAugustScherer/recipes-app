@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import DetailsContext from '../context/DetailsContext';
 
 function Ingredientes() {
@@ -10,7 +10,9 @@ function Ingredientes() {
     setIngredientes,
     isInProgress,
   } = useContext(DetailsContext);
-  const handleIngredients = (ingredient) => {
+  const [ingredientsList, setIngredientsList] = useState([]);
+
+  const handleIngredient = (ingredient) => {
     if (ingredientes.includes(ingredient)) {
       setIngredientes(ingredientes.filter((ingrediente) => ingrediente !== ingredient));
     } else {
@@ -18,44 +20,57 @@ function Ingredientes() {
     }
   };
 
-  const listOfIngredients = [];
-  for (let index = 1; index <= MAX_INGREDIENT; index += 1) {
-    const ingredient = refeicao[`strIngredient${index}`];
-    const measure = refeicao[`strMeasure${index}`];
+  const fillIngredientsList = useCallback(() => {
+    setIngredientsList([]);
+    for (let index = 1; index <= MAX_INGREDIENT; index += 1) {
+      const ingredient = refeicao[`strIngredient${index}`];
+      const measure = refeicao[`strMeasure${index}`];
 
-    if (ingredient && !isInProgress) {
-      const li = (
-        <li
-          data-testid={ `${index - 1}-ingredient-name-and-measure` }
-          key={ ingredient }
-        >
-          { ingredient }
-          { ' - ' }
-          { measure }
-        </li>
-      );
-      listOfIngredients.push(li);
-    } else if (ingredient) {
-      const checkbox = (
-        <li key={ ingredient } data-testid={ `${index - 1}-ingredient-step` }>
-          <input
-            type="checkbox"
-            onClick={ () => handleIngredients(ingredient) }
-          />
-          <span>
+      if (ingredient && !isInProgress) {
+        const li = (
+          <li
+            data-testid={ `${index - 1}-ingredient-name-and-measure` }
+            key={ ingredient }
+          >
             { ingredient }
             { ' - ' }
             { measure }
-          </span>
-        </li>
-      );
-      listOfIngredients.push(checkbox);
+          </li>
+        );
+        setIngredientsList((prevList) => [...prevList, li]);
+      } else if (ingredient) {
+        const checkbox = (
+          <li key={ ingredient } data-testid={ `${index - 1}-ingredient-step` }>
+            <input
+              type="checkbox"
+              onClick={ () => handleIngredient(ingredient) }
+            />
+            <span>
+              { ingredient }
+              { ' - ' }
+              { measure }
+            </span>
+          </li>
+        );
+        setIngredientsList((prevList) => [...prevList, checkbox]);
+      }
     }
-  }
-  setTotalIngredientes(listOfIngredients.length);
+    setTotalIngredientes(ingredientsList.length);
+    // eslint-disable-next-line
+  }, [isInProgress, ingredientes]);
+
+  useEffect(() => {
+    fillIngredientsList();
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    fillIngredientsList();
+  }, [setIngredientsList, fillIngredientsList]);
+
   return (
     <ul>
-      { listOfIngredients.map((el) => el) }
+      { ingredientsList.map((el) => el) }
     </ul>
   );
 }
