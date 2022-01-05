@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import CardRecomendacao from './CardRecomendacao';
 import useFavorite from '../hooks/useFavorite';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import DetailsContext from '../context/DetailsContext';
+import Ingredientes from './Ingredientes';
 
-function Bebe({ refeicao, recomendadas, id, setShareToast, renderIngredients }) {
+function Bebe({ setShareToast }) {
+  const { refeicao, recomendadas, id } = useContext(DetailsContext);
   const { favorite, handleFavorite } = useFavorite(id);
-
   if (Object.keys(refeicao).length === 0) return null;
   const {
     strDrink,
@@ -49,7 +51,7 @@ function Bebe({ refeicao, recomendadas, id, setShareToast, renderIngredients }) 
         />
       </button>
       <h2>Ingredients</h2>
-      { renderIngredients() }
+      <Ingredientes />
       <h2>Instructions</h2>
       <p data-testid="instructions">{ strInstructions }</p>
       <h2>Recomendadas</h2>
@@ -66,13 +68,6 @@ function Bebe({ refeicao, recomendadas, id, setShareToast, renderIngredients }) 
             />
           )) }
       </div>
-      <button
-        data-testid="start-recipe-btn"
-        className="start-recipe-btn"
-        type="button"
-      >
-        Iniciar Receita
-      </button>
     </>
   );
 }
