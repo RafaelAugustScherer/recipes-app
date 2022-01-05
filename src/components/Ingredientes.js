@@ -37,10 +37,9 @@ function Ingredientes() {
       listOfIngredients.push(li);
     } else if (ingredient) {
       const checkbox = (
-        <li key={ ingredient }>
+        <li key={ ingredient } data-testid={ `${index - 1}-ingredient-step` }>
           <input
             type="checkbox"
-            data-testid={ `${index - 1}-ingredient-step` }
             onClick={ () => handleIngredients(ingredient) }
           />
           <span>
