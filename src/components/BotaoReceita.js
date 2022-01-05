@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useContext } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import DetailsContext from '../context/DetailsContext';
 
 function BotaoReceita({ url }) {
@@ -12,15 +12,16 @@ function BotaoReceita({ url }) {
       {
         !isInProgress ? (
           progresso !== 'finalizado' && (
-            <Link
+            <button
+              type="button"
               data-testid="start-recipe-btn"
               className="start-recipe-btn"
-              to={ `${url}/in-progress` }
+              onClick={ () => history.push(`${url}/in-progress`) }
             >
               {
                 progresso === 'não iniciado' ? 'Iniciar Receita' : 'Continuar Receita'
               }
-            </Link>
+            </button>
           )
         ) : (
           <button

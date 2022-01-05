@@ -55,7 +55,6 @@ function Ingredientes() {
         setIngredientsList((prevList) => [...prevList, checkbox]);
       }
     }
-    setTotalIngredientes(ingredientsList.length);
     // eslint-disable-next-line
   }, [isInProgress, ingredientes]);
 
@@ -67,6 +66,10 @@ function Ingredientes() {
   useEffect(() => {
     fillIngredientsList();
   }, [setIngredientsList, fillIngredientsList]);
+
+  useEffect(() => {
+    setTotalIngredientes(ingredientsList.length);
+  }, [ingredientsList, setTotalIngredientes]);
 
   return (
     <ul>
