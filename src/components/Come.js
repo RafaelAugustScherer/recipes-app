@@ -23,6 +23,7 @@ function Come({ setShareToast }) {
 
   const strYoutubeArray = strYoutube.split('=');
   const newStrYoutube = `https://www.youtube.com/embed/${strYoutubeArray[1]}`;
+
   return (
     <>
       <img
@@ -37,7 +38,8 @@ function Come({ setShareToast }) {
         data-testid="share-btn"
         type="button"
         onClick={ () => {
-          clipboardCopy(window.location.href);
+          const { hostname, protocol } = window.location;
+          clipboardCopy(`${protocol}//${hostname}:3000/comidas/${id}`);
           setShareToast(true);
         } }
       >

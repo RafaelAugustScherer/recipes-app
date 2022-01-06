@@ -34,7 +34,8 @@ function Bebe({ setShareToast }) {
         data-testid="share-btn"
         type="button"
         onClick={ () => {
-          clipboardCopy(window.location.href);
+          const { hostname, protocol } = window.location;
+          clipboardCopy(`${protocol}//${hostname}:3000/bebidas/${id}`);
           setShareToast(true);
         } }
       >
