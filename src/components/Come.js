@@ -18,7 +18,7 @@ function Come({ setShareToast }) {
     strMealThumb,
     strCategory,
     strInstructions,
-    strYoutube,
+    strYoutube = '',
   } = refeicao;
 
   const strYoutubeArray = strYoutube.split('=');

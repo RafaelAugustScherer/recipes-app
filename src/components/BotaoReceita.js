@@ -22,10 +22,12 @@ function BotaoReceita({ url, comesOuBebes }) {
 
   useEffect(() => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
     if (doneRecipes.some(({ id: doneId }) => doneId === id)) {
       setProgresso(FINISHED);
-    } else if (Object.keys(mealsOrCocktails()).includes(id)) {
+    } else if (inProgressRecipes[mealsOrCocktails()]
+    && Object.keys(inProgressRecipes[mealsOrCocktails()]).includes(id)) {
       setProgresso(STARTED);
     } else {
       setProgresso(NOT_STARTED);
@@ -35,7 +37,7 @@ function BotaoReceita({ url, comesOuBebes }) {
   const handleStart = () => {
     const currentStatus = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-    if (!Object.keys(mealsOrCocktails()).includes(id)) {
+    if (!Object.keys(currentStatus[mealsOrCocktails()]).includes(id)) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(
         { ...currentStatus,
           [mealsOrCocktails()]: { ...currentStatus[mealsOrCocktails()], [id]: [] } },
@@ -48,33 +50,34 @@ function BotaoReceita({ url, comesOuBebes }) {
   const handleFinish = () => {
     const prevDone = JSON.parse(localStorage.getItem('doneRecipes'));
     const prevInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    let newDone = {};
 
     const doneDate = Date.now();
-    const { strArea: area, strCategory: category } = refeicao;
-    let { strTags: tags } = refeicao;
-    if (tags === null) tags = '';
+    const {
+      strMeal,
+      strDrink,
+      strMealThumb,
+      strDrinkThumb,
+      strAlcoholic: alcoholicOrNot = '',
+      strArea: area,
+      strCategory: category,
+      strTags: tags = '' } = refeicao;
 
-    if (comesOuBebes === 'comes') {
-      const { strMeal: name, strMealThumb: image } = refeicao;
-      const type = 'comida';
-      const alcoholicOrNot = '';
-      newDone = { name, image, type, alcoholicOrNot };
-    } else {
-      const {
-        strDrink: name,
-        strDrinkThumb: image,
-        strAlcoholic: alcoholicOrNot } = refeicao;
-      const type = 'bebida';
-      newDone = { name, image, type, alcoholicOrNot };
-    }
+    const name = strMeal || strDrink;
+    const image = strMealThumb || strDrinkThumb;
+    const type = comesOuBebes === 'comes' ? 'comida' : 'bebida';
 
-    localStorage.setItem('doneRecipes', JSON.stringify(
-      [
-        ...prevDone,
-        { id, area, category, tags, doneDate, ...newDone },
-      ],
-    ));
+    const newDone = {
+      id,
+      name,
+      image,
+      type,
+      area,
+      category,
+      tags,
+      alcoholicOrNot,
+      doneDate,
+    };
+    localStorage.setItem('doneRecipes', JSON.stringify([...prevDone, newDone]));
 
     delete prevInProgress[mealsOrCocktails()][id];
     localStorage.setItem('inProgressRecipes', JSON.stringify(prevInProgress));

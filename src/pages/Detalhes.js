@@ -22,6 +22,7 @@ function Detalhes({ match: { url } }) {
   const MAX_LENGTH = 6;
   const { fetchRecipes, fetchRecipeById } = UseRecipe(MAX_LENGTH);
   const [shareToast, setShareToast] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const startLocalStorage = () => {
     if (!localStorage.getItem('inProgressRecipes')) {
@@ -37,7 +38,7 @@ function Detalhes({ match: { url } }) {
 
   const getRecipeStatus = () => {
     const { cocktails, meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(cocktails);
+
     if (comesOuBebes === 'comes' && Object.keys(meals).includes(urlId)) {
       setIngredientes(meals[urlId]);
     } else if (comesOuBebes === 'bebes' && Object.keys(cocktails).includes(urlId)) {
@@ -45,23 +46,25 @@ function Detalhes({ match: { url } }) {
     }
   };
 
+  const fetchRecipe = async () => {
+    setIsLoading(true);
+    const newRefeicao = await fetchRecipeById(comesOuBebes, urlId);
+    const newRecomendadas = await fetchRecipes(
+      comesOuBebes === 'comes' ? 'bebes' : 'comes',
+    );
+    setRefeicao(newRefeicao);
+    setRecomendadas(newRecomendadas);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
+    fetchRecipe();
+    getRecipeStatus();
     setIsInProgress(progressUrl);
     setId(urlId);
 
-    const fetchData = async () => {
-      const newRefeicao = await fetchRecipeById(comesOuBebes, urlId);
-      const newRecomendadas = await fetchRecipes(
-        comesOuBebes === 'comes' ? 'bebes' : 'comes',
-      );
-      setRefeicao(newRefeicao);
-      setRecomendadas(newRecomendadas);
-    };
-    fetchData();
-    getRecipeStatus();
-
     // eslint-disable-next-line
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     setIsInProgress(progressUrl);
@@ -71,6 +74,7 @@ function Detalhes({ match: { url } }) {
     setShareToast,
   };
 
+  if (isLoading) return <p>Loading...</p>;
   return (
     <div>
       <Toast
@@ -81,7 +85,9 @@ function Detalhes({ match: { url } }) {
       >
         <p>Link copiado!</p>
       </Toast>
-      { comesOuBebes === 'comes' ? <Come { ...props } /> : <Bebe { ...props } />}
+      {
+        comesOuBebes === 'comes' ? <Come { ...props } /> : <Bebe { ...props } />
+      }
       <BotaoReceita url={ url } comesOuBebes={ comesOuBebes } />
     </div>
   );

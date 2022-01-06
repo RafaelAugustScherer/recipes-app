@@ -65,7 +65,7 @@ function Bebe({ setShareToast }) {
               name={ strMeal }
               index={ index }
               id={ idMeal }
-              url="bebidas"
+              url="comidas"
             />
           )) }
       </div>

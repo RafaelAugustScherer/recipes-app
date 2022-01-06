@@ -37,9 +37,10 @@ function Ingredientes() {
 
   const isInLocalStorage = (ingredient) => {
     const currentStatus = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    console.log(currentStatus[mealsOrCocktails()][id]);
-    return currentStatus[mealsOrCocktails()][id].includes(ingredient);
+    if (currentStatus[mealsOrCocktails()][id]) {
+      return currentStatus[mealsOrCocktails()][id].includes(ingredient);
+    }
+    return false;
   };
 
   const fillIngredientsList = useCallback(() => {
@@ -66,7 +67,7 @@ function Ingredientes() {
             <input
               type="checkbox"
               onChange={ () => handleIngredient(ingredient) }
-              checked={ () => isInLocalStorage(ingredient) }
+              checked={ isInLocalStorage(ingredient) }
             />
             <span>
               { ingredient }
