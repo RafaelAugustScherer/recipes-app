@@ -10,6 +10,7 @@ import DetailsContext from '../context/DetailsContext';
 function Detalhes({ match: { url } }) {
   const {
     setRefeicao,
+    setIngredientes,
     setRecomendadas,
     setId,
     setIsInProgress } = useContext(DetailsContext);
@@ -21,6 +22,28 @@ function Detalhes({ match: { url } }) {
   const MAX_LENGTH = 6;
   const { fetchRecipes, fetchRecipeById } = UseRecipe(MAX_LENGTH);
   const [shareToast, setShareToast] = useState(false);
+
+  const startLocalStorage = () => {
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage
+        .setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
+    }
+    if (!localStorage.getItem('doneRecipes')) {
+      localStorage
+        .setItem('doneRecipes', JSON.stringify([]));
+    }
+  };
+  startLocalStorage();
+
+  const getRecipeStatus = () => {
+    const { cocktails, meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(cocktails);
+    if (comesOuBebes === 'comes' && Object.keys(meals).includes(urlId)) {
+      setIngredientes(meals[urlId]);
+    } else if (comesOuBebes === 'bebes' && Object.keys(cocktails).includes(urlId)) {
+      setIngredientes(cocktails[urlId]);
+    }
+  };
 
   useEffect(() => {
     setIsInProgress(progressUrl);
@@ -35,6 +58,8 @@ function Detalhes({ match: { url } }) {
       setRecomendadas(newRecomendadas);
     };
     fetchData();
+    getRecipeStatus();
+
     // eslint-disable-next-line
   }, []);
 
@@ -57,7 +82,7 @@ function Detalhes({ match: { url } }) {
         <p>Link copiado!</p>
       </Toast>
       { comesOuBebes === 'comes' ? <Come { ...props } /> : <Bebe { ...props } />}
-      <BotaoReceita url={ url } />
+      <BotaoReceita url={ url } comesOuBebes={ comesOuBebes } />
     </div>
   );
 }

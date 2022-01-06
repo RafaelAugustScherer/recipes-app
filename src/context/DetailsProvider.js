@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import DetailsContext from './DetailsContext';
 
@@ -9,6 +9,13 @@ function DetailsProvider({ children }) {
   const [recomendadas, setRecomendadas] = useState([]);
   const [id, setId] = useState('');
   const [isInProgress, setIsInProgress] = useState('');
+
+  const mealsOrCocktails = useCallback(() => {
+    // const { meals, cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (Object.keys(refeicao).length === 0) return {};
+    if (refeicao.strMeal) return 'meals';
+    return 'cocktails';
+  }, [refeicao]);
 
   const contextValue = {
     ingredientes,
@@ -23,6 +30,7 @@ function DetailsProvider({ children }) {
     setIsInProgress,
     id,
     setId,
+    mealsOrCocktails,
   };
 
   return (

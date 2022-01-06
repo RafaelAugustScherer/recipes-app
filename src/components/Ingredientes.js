@@ -4,20 +4,42 @@ import DetailsContext from '../context/DetailsContext';
 function Ingredientes() {
   const MAX_INGREDIENT = 20;
   const {
+    id,
     refeicao,
     setTotalIngredientes,
     ingredientes,
     setIngredientes,
     isInProgress,
+    mealsOrCocktails,
   } = useContext(DetailsContext);
   const [ingredientsList, setIngredientsList] = useState([]);
 
   const handleIngredient = (ingredient) => {
+    const previousStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    let newIngredientes = [];
+
     if (ingredientes.includes(ingredient)) {
-      setIngredientes(ingredientes.filter((ingrediente) => ingrediente !== ingredient));
+      newIngredientes = ingredientes
+        .filter((ingrediente) => ingrediente !== ingredient);
     } else {
-      setIngredientes([...ingredientes, ingredient]);
+      newIngredientes = [...ingredientes, ingredient];
     }
+
+    setIngredientes(newIngredientes);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(
+      { ...previousStorage,
+        [mealsOrCocktails()]:
+          { ...previousStorage[mealsOrCocktails()],
+            [id]: newIngredientes },
+      },
+    ));
+  };
+
+  const isInLocalStorage = (ingredient) => {
+    const currentStatus = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    console.log(currentStatus[mealsOrCocktails()][id]);
+    return currentStatus[mealsOrCocktails()][id].includes(ingredient);
   };
 
   const fillIngredientsList = useCallback(() => {
@@ -43,7 +65,8 @@ function Ingredientes() {
           <li key={ ingredient } data-testid={ `${index - 1}-ingredient-step` }>
             <input
               type="checkbox"
-              onClick={ () => handleIngredient(ingredient) }
+              onChange={ () => handleIngredient(ingredient) }
+              checked={ () => isInLocalStorage(ingredient) }
             />
             <span>
               { ingredient }
