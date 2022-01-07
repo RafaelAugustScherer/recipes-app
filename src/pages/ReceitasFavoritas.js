@@ -1,43 +1,32 @@
-import React, { useState } from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import CardRecipes from '../components/CardRecipes';
+import FilterButtons from '../components/FilterButtons';
 import Header from '../components/Header';
 
 function ReceitasFavoritas() {
   const [recipes, setRecipes] = useState([]);
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-  const applyFilter = (type) => {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-    switch (type) {
-    case 'food': {
-      setRecipes(favoriteRecipes.filter(({ type: favType }) => favType === 'comida'));
-      break;
-    }
-    case 'drink': {
-      setRecipes(favoriteRecipes.filter(({ type: favType }) => favType === 'bebida'));
-      break;
-    }
-    default: {
-      setRecipes(favoriteRecipes);
-    }
-    }
-  };
+  useEffect(() => {
+    setRecipes(favoriteRecipes);
+  // eslint-disable-next-line
+  }, []);
 
   return (
     <>
       <Header title="Receitas Favoritas" />
-      <button type="button" onClick={ () => applyFilter('all') }>All</button>
-      <button type="button" onClick={ () => applyFilter('food') }>Food</button>
-      <button type="button" onClick={ () => applyFilter('drink') }>Drinks</button>
+      <FilterButtons
+        setRecipes={ setRecipes }
+        favorite
+        favoriteRecipes={ favoriteRecipes }
+      />
       {
-        recipes.map(({ id, name, image, type }, index) => (
-          <Card
-            key={ name }
-            thumb={ image }
-            name={ name }
+        recipes.map((recipe, index) => (
+          <CardRecipes
+            key={ recipe.name }
             index={ index }
-            id={ id }
-            url={ type === 'comida' ? 'comidas' : 'bebidas' }
+            recipe={ recipe }
+            url={ recipe.type === 'comida' ? 'comidas' : 'bebidas' }
           />))
       }
     </>

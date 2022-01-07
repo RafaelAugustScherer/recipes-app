@@ -1,17 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
-import clipboardCopy from 'clipboard-copy';
 import CardRecomendacao from './CardRecomendacao';
-import useFavorite from '../hooks/useFavorite';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import DetailsContext from '../context/DetailsContext';
 import Ingredientes from './Ingredientes';
+import BotaoShareAndFavorite from './BotaoShareAndFavorite';
 
-function Bebe({ setShareToast }) {
-  const { refeicao, recomendadas, id } = useContext(DetailsContext);
-  const { favorite, handleFavorite } = useFavorite(id);
+function Bebe() {
+  const { refeicao, recomendadas } = useContext(DetailsContext);
   if (Object.keys(refeicao).length === 0) return null;
   const {
     strDrink,
@@ -30,27 +25,7 @@ function Bebe({ setShareToast }) {
       />
       <p data-testid="recipe-title">{ strDrink }</p>
       <p data-testid="recipe-category">{ `${strCategory} ${strAlcoholic}` }</p>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ () => {
-          const { hostname, protocol } = window.location;
-          clipboardCopy(`${protocol}//${hostname}:3000/bebidas/${id}`);
-          setShareToast(true);
-        } }
-      >
-        <img src={ shareIcon } alt="share" />
-      </button>
-      <button
-        type="button"
-        onClick={ () => handleFavorite('bebida') }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ favorite ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite"
-        />
-      </button>
+      <BotaoShareAndFavorite />
       <h2>Ingredients</h2>
       <Ingredientes />
       <h2>Instructions</h2>

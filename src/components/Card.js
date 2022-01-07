@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 function Card({ thumb, name, index, url, id }) {
   return (
     <Link data-testid={ `${index}-recipe-card` } to={ `/${url}/${id}` } className="card">
-      <img data-testid={ `${index}-card-img` } src={ thumb } alt={ name } />
+      <img
+        data-testid={ `${index}-card-img` }
+        src={ thumb }
+        alt={ name }
+        className="card-image"
+      />
       <p data-testid={ `${index}-card-name` }>{ name }</p>
     </Link>
   );

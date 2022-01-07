@@ -9,6 +9,7 @@ function DetailsProvider({ children }) {
   const [recomendadas, setRecomendadas] = useState([]);
   const [id, setId] = useState('');
   const [isInProgress, setIsInProgress] = useState('');
+  const [shareToast, setShareToast] = useState(false);
 
   const mealsOrCocktails = useCallback(() => {
     // const { meals, cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -31,6 +32,8 @@ function DetailsProvider({ children }) {
     id,
     setId,
     mealsOrCocktails,
+    shareToast,
+    setShareToast,
   };
 
   return (

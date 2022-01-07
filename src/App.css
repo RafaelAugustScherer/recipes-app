@@ -40,6 +40,10 @@
   max-width: 200px;
 }
 
+.card-image {
+  width: 100%;
+}
+
 
 .start-recipe-btn {
   bottom: 0;
