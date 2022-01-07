@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function FilterButtons({ setRecipes, favorite, favoriteRecipes }) {
+function FilterButtons({ setRecipes, favorite, favoriteRecipes, doneRecipes }) {
   const applyFilter = (type) => {
     switch (type) {
     case 'food': {
       if (favorite) {
         setRecipes(favoriteRecipes.filter(({ type: favType }) => favType === 'comida'));
       } else {
-        console.log('feitas');
+        setRecipes(doneRecipes.filter(({ type: doneType }) => doneType === 'comida'));
       }
       break;
     }
@@ -16,7 +16,7 @@ function FilterButtons({ setRecipes, favorite, favoriteRecipes }) {
       if (favorite) {
         setRecipes(favoriteRecipes.filter(({ type: favType }) => favType === 'bebida'));
       } else {
-        console.log('feitas');
+        setRecipes(doneRecipes.filter(({ type: doneType }) => doneType === 'bebida'));
       }
       break;
     }
@@ -24,7 +24,7 @@ function FilterButtons({ setRecipes, favorite, favoriteRecipes }) {
       if (favorite) {
         setRecipes(favoriteRecipes);
       } else {
-        console.log('feitas');
+        setRecipes(doneRecipes);
       }
     }
     }

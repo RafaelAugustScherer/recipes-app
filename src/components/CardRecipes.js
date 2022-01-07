@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import BotaoShareAndFavorite from './BotaoShareAndFavorite';
 
 function CardRecipes(
-  { recipe: { id, name, image, type, area, category, alcoholicOrNot }, index, url },
+  { recipe: { id, name, image, type, area, category, alcoholicOrNot, doneDate, tags },
+    index,
+    url,
+    donePage },
 ) {
   return (
     <div className="card card-favorites">
@@ -23,6 +26,27 @@ function CardRecipes(
             type === 'comida' ? (`${area} - ${category}`) : (`${alcoholicOrNot}`)
           }
         </p>
+        {
+          donePage && (
+            <>
+              <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
+              <ul>
+                {
+                  type === 'comida' && (
+                    tags.map((tag, tagIndex) => {
+                      if (tagIndex <= 1) {
+                        return (
+                          <p data-testid={ `${index}-${tag}-horizontal-tag` }>{ tag }</p>
+                        );
+                      }
+                      return null;
+                    })
+                  )
+                }
+              </ul>
+            </>
+          )
+        }
       </Link>
       <BotaoShareAndFavorite id={ id } index={ index } type={ type } />
     </div>
