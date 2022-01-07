@@ -5,6 +5,13 @@ import MenuInferior from '../components/MenuInferior';
 
 function ExplorarComidas() {
   const history = useHistory();
+
+  const fetchRandomMeal = () => {
+    fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+      .then((response) => response.json())
+      .then((result) => history.push(`/comidas/${result.meals[0].idMeal}`));
+  };
+
   return (
     <>
       <Header title="Explorar Comidas" />
@@ -28,7 +35,7 @@ function ExplorarComidas() {
       <button
         type="button"
         data-testid="explore-surprise"
-        // onClick={ () => history.push('/explorar/comidas') }
+        onClick={ fetchRandomMeal }
       >
         Me Surpreenda!
       </button>

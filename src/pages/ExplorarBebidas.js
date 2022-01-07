@@ -6,6 +6,11 @@ import MenuInferior from '../components/MenuInferior';
 function ExplorarBebidas() {
   const history = useHistory();
 
+  const fetchRandomDrink = () => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+      .then((response) => response.json())
+      .then((result) => history.push(`/bebidas/${result.drinks[0].idDrink}`));
+  };
   return (
     <>
       <Header title="Explorar Bebidas" />
@@ -21,7 +26,7 @@ function ExplorarBebidas() {
       <button
         type="button"
         data-testid="explore-surprise"
-        onClick={ () => history.push('/explorar/comidas') }
+        onClick={ fetchRandomDrink }
       >
         Me Surpreenda!
       </button>
