@@ -6,7 +6,6 @@ import Header from '../components/Header';
 function ReceitasFavoritas() {
   const [recipes, setRecipes] = useState([]);
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
   useEffect(() => {
     setRecipes(favoriteRecipes);
   // eslint-disable-next-line

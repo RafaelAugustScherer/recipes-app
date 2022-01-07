@@ -24,7 +24,7 @@ function CardRecipes(
           }
         </p>
       </Link>
-      <BotaoShareAndFavorite id={ id } />
+      <BotaoShareAndFavorite id={ id } index={ index } />
     </div>
   );
 }

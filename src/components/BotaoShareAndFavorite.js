@@ -7,24 +7,28 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import DetailsContext from '../context/DetailsContext';
 import useFavorite from '../hooks/useFavorite';
 
-function BotaoShareAndFavorite({ id: propId }) {
+function BotaoShareAndFavorite({ id: propId, index }) {
   const { id: contextId, mealsOrCocktails, setShareToast } = useContext(DetailsContext);
   const id = contextId || propId;
-  console.log(id);
   const { favorite, handleFavorite } = useFavorite(id);
-
+  let testIdShareBtn = 'share-btn';
+  let testIdFavoriteBtn = 'favorite-btn';
+  if (typeof index === 'number') {
+    testIdShareBtn = `${index}-horizontal-share-btn`;
+    testIdFavoriteBtn = `${index}-horizontal-favorite-btn`;
+  }
   return (
     <>
       <button
-        data-testid="share-btn"
         type="button"
         onClick={ () => {
           const { hostname, protocol } = window.location;
-          clipboardCopy(`${protocol}//${hostname}:3000/comidas/${id}`);
+          const urlType = mealsOrCocktails() === 'meals' ? 'comidas' : 'bebidas';
+          clipboardCopy(`${protocol}//${hostname}:3000/${urlType}/${id}`);
           setShareToast(true);
         } }
       >
-        <img src={ shareIcon } alt="share" />
+        <img data-testid={ testIdShareBtn } src={ shareIcon } alt="share" />
       </button>
       <button
         type="button"
@@ -32,7 +36,7 @@ function BotaoShareAndFavorite({ id: propId }) {
           ? () => handleFavorite('comida') : () => handleFavorite('bebida') }
       >
         <img
-          data-testid="favorite-btn"
+          data-testid={ testIdFavoriteBtn }
           src={ favorite ? blackHeartIcon : whiteHeartIcon }
           alt="favorite"
         />
