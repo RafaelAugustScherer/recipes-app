@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
+import RecipesContext from '../context/RecipesContext';
 
 function Perfil() {
+  const { startLocalStorage } = useContext(RecipesContext);
+  startLocalStorage();
   const userEmail = JSON.parse(localStorage.getItem('user'));
   const { email } = userEmail;
   const history = useHistory();

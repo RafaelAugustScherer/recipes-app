@@ -3,14 +3,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import DetailsContext from '../context/DetailsContext';
 
-function BotaoReceita({ url, comesOuBebes }) {
+function BotaoReceita({ url }) {
   const {
     id,
     ingredientes,
-    refeicao,
     totalIngredientes,
     isInProgress,
     mealsOrCocktails,
+    handleFinish,
   } = useContext(DetailsContext);
   const history = useHistory();
 
@@ -45,44 +45,6 @@ function BotaoReceita({ url, comesOuBebes }) {
     }
     setProgresso(STARTED);
     history.push(`${url}/in-progress`);
-  };
-
-  const handleFinish = () => {
-    const prevDone = JSON.parse(localStorage.getItem('doneRecipes'));
-    const prevInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    const doneDate = Date.now();
-    const {
-      strMeal,
-      strDrink,
-      strMealThumb,
-      strDrinkThumb,
-      strAlcoholic: alcoholicOrNot = '',
-      strArea: area,
-      strCategory: category,
-      strTags: tags = '' } = refeicao;
-
-    const name = strMeal || strDrink;
-    const image = strMealThumb || strDrinkThumb;
-    const type = comesOuBebes === 'comes' ? 'comida' : 'bebida';
-
-    const newDone = {
-      id,
-      name,
-      image,
-      type,
-      area,
-      category,
-      tags,
-      alcoholicOrNot,
-      doneDate,
-    };
-    localStorage.setItem('doneRecipes', JSON.stringify([...prevDone, newDone]));
-
-    delete prevInProgress[mealsOrCocktails()][id];
-    localStorage.setItem('inProgressRecipes', JSON.stringify(prevInProgress));
-
-    history.push('/receitas-feitas');
   };
 
   return (

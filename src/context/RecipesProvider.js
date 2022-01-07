@@ -10,6 +10,7 @@ function RecipesProvider({ children }) {
   const [bebes, setBebes] = useState([]);
   const [backup, setBackup] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState([]);
 
   useEffect(() => {
     const fetchComes = async () => {
@@ -40,6 +41,11 @@ function RecipesProvider({ children }) {
       localStorage
         .setItem('favoriteRecipes', JSON.stringify([]));
     }
+
+    if (!localStorage.getItem('user')) {
+      localStorage
+        .setItem('user', JSON.stringify({ email: '' }));
+    }
   };
 
   const contextValue = {
@@ -52,6 +58,8 @@ function RecipesProvider({ children }) {
     favoriteRecipes,
     setFavoriteRecipes,
     startLocalStorage,
+    doneRecipes,
+    setDoneRecipes,
   };
 
   return (

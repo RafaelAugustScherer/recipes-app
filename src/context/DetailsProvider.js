@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import DetailsContext from './DetailsContext';
 
@@ -10,6 +11,7 @@ function DetailsProvider({ children }) {
   const [id, setId] = useState('');
   const [isInProgress, setIsInProgress] = useState('');
   const [shareToast, setShareToast] = useState(false);
+  const history = useHistory();
 
   const mealsOrCocktails = useCallback(() => {
     // const { meals, cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -17,6 +19,45 @@ function DetailsProvider({ children }) {
     if (refeicao.strMeal) return 'meals';
     return 'cocktails';
   }, [refeicao]);
+
+  const handleFinish = () => {
+    const prevDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    const prevInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    const date = new Date();
+    const doneDate = `${date.getDate()}/${(date.getMonth()) + 1}/${date.getFullYear()}`;
+    const {
+      strMeal,
+      strDrink,
+      strMealThumb,
+      strDrinkThumb,
+      strAlcoholic: alcoholicOrNot = '',
+      strArea: area,
+      strCategory: category,
+      strTags } = refeicao;
+
+    const name = strMeal || strDrink;
+    const image = strMealThumb || strDrinkThumb;
+    const type = mealsOrCocktails() === 'meals' ? 'comida' : 'bebida';
+    const tags = strTags && strTags.split(',');
+    const newDone = {
+      id,
+      name,
+      image,
+      type,
+      area,
+      category,
+      tags,
+      alcoholicOrNot,
+      doneDate,
+    };
+    localStorage.setItem('doneRecipes', JSON.stringify([...prevDone, newDone]));
+
+    delete prevInProgress[mealsOrCocktails()][id];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(prevInProgress));
+
+    history.push('/receitas-feitas');
+  };
 
   const contextValue = {
     ingredientes,
@@ -34,6 +75,7 @@ function DetailsProvider({ children }) {
     mealsOrCocktails,
     shareToast,
     setShareToast,
+    handleFinish,
   };
 
   return (
