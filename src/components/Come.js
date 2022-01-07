@@ -15,7 +15,6 @@ function Come() {
     strInstructions,
     strYoutube = '',
   } = refeicao;
-  console.log(name);
 
   const strYoutubeArray = strYoutube.split('=');
   const newStrYoutube = `https://www.youtube.com/embed/${strYoutubeArray[1]}`;
