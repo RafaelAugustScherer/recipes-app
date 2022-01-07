@@ -25,7 +25,7 @@ function Bebe() {
       />
       <p data-testid="recipe-title">{ name }</p>
       <p data-testid="recipe-category">{ `${strCategory} ${alcoholicOrNot}` }</p>
-      <BotaoShareAndFavorite />
+      <BotaoShareAndFavorite type="bebida" />
       <h2>Ingredients</h2>
       <Ingredientes />
       <h2>Instructions</h2>

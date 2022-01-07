@@ -21,18 +21,21 @@ function UseDrink() {
   };
 
   const fetchDrinksByIngredient = async (ingredient) => {
-    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
-    return convertApiResult(drinks[0]);
+    let { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
+    drinks = drinks ? drinks.map((drink) => convertApiResult(drink)) : null;
+    return drinks;
   };
 
   const fetchDrinksByName = async (name) => {
-    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`).then((response) => response.json());
-    return convertApiResult(drinks[0]);
+    let { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`).then((response) => response.json());
+    drinks = drinks ? drinks.map((drink) => convertApiResult(drink)) : null;
+    return drinks;
   };
 
   const fetchDrinksByFirstLetter = async (letter) => {
-    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`).then((response) => response.json());
-    return convertApiResult(drinks[0]);
+    let { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`).then((response) => response.json());
+    drinks = drinks ? drinks.map((drink) => convertApiResult(drink)) : null;
+    return drinks;
   };
 
   return {

@@ -46,12 +46,15 @@ function BarradeBusca({ comidasOuBebidas }) {
       return null;
     }
 
-    if (newSearch.length === 1) history.push(`/${comidasOuBebidas}/${newSearch[0].id}`);
+    if (newSearch.length === 1) {
+      history.push(`/${comidasOuBebidas}/${newSearch[0].id}`);
+    }
 
+    const MAX_LENGTH = 12;
     if (comidasOuBebidas === 'comidas') {
-      setComidas(newSearch);
+      setComidas(newSearch.slice(0, MAX_LENGTH));
     } else {
-      setBebidas(newSearch);
+      setBebidas(newSearch.slice(0, MAX_LENGTH));
     }
   };
 

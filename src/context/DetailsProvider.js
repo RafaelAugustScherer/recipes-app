@@ -27,19 +27,15 @@ function DetailsProvider({ children }) {
     const date = new Date();
     const doneDate = `${date.getDate()}/${(date.getMonth()) + 1}/${date.getFullYear()}`;
     const {
-      strMeal,
-      strDrink,
-      strMealThumb,
-      strDrinkThumb,
-      strAlcoholic: alcoholicOrNot = '',
+      name,
+      image,
+      alcoholicOrNot,
       strArea: area,
       strCategory: category,
       strTags } = refeicao;
 
-    const name = strMeal || strDrink;
-    const image = strMealThumb || strDrinkThumb;
     const type = mealsOrCocktails() === 'meals' ? 'comida' : 'bebida';
-    const tags = strTags && strTags.split(',');
+    const tags = strTags ? strTags.split(',') : [];
     const newDone = {
       id,
       name,
