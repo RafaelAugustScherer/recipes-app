@@ -22,7 +22,6 @@ function BotaoShareAndFavorite({ id: propId, index, type }) {
     testIdShareBtn = `${index}-horizontal-share-btn`;
     testIdFavoriteBtn = `${index}-horizontal-favorite-btn`;
   }
-
   const favoriteHandleClick = () => {
     if (mealsOrCocktails() === 'meals') {
       handleFavorite('comida');
@@ -32,7 +31,6 @@ function BotaoShareAndFavorite({ id: propId, index, type }) {
     const storageFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavoriteRecipes(storageFavoriteRecipes);
   };
-
   return (
     <>
       <div>
@@ -69,9 +67,7 @@ function BotaoShareAndFavorite({ id: propId, index, type }) {
     </>
   );
 }
-
 BotaoShareAndFavorite.propTypes = {
   setShareToast: PropTypes.func,
 }.isRequired;
-
 export default BotaoShareAndFavorite;

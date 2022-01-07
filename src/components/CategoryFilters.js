@@ -1,52 +1,53 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
+import useRecipe from '../hooks/UseRecipe';
 
-function CategoryFilters({ comesOuBebes }) {
+function CategoryFilters({ comidasOuBebidas }) {
   const [state, setState] = useState({
     categories: [],
     currentFilter: '',
   });
   const {
-    comes,
-    bebes,
-    setComes,
-    setBebes,
+    comidas,
+    bebidas,
+    setComidas,
+    setBebidas,
     backup,
     setBackup,
   } = useContext(RecipesContext);
 
+  const MAX_LENGTH_CATEGORY = 5;
+  const { fetchCategories } = useRecipe(MAX_LENGTH_CATEGORY);
+
   useEffect(() => {
-    const ENDPOINT_COMES = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-    const ENDPOINT_BEBES = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-
-    const fetchComesCategories = async () => {
-      const { meals } = await fetch(ENDPOINT_COMES).then((response) => response.json());
-      const categories = meals.map(({ strCategory }) => strCategory);
+    const setInitialState = async () => {
+      const categories = await fetchCategories(comidasOuBebidas);
       setState({ ...state, categories });
     };
-
-    const fetchBebesCategories = async () => {
-      const { drinks } = await fetch(ENDPOINT_BEBES).then((response) => response.json());
-      const categories = drinks.map(({ strCategory }) => strCategory);
-      setState({ ...state, categories });
-    };
-
-    if (comesOuBebes === 'comes') fetchComesCategories();
-    if (comesOuBebes === 'bebes') fetchBebesCategories();
+    setInitialState();
     // eslint-disable-next-line
   }, []);
 
-  const fetchCategories = async (category) => {
-    if (comesOuBebes === 'comes') {
+  const fetchByCategory = async (category) => {
+    const MAX_LENGTH = 12;
+    if (comidasOuBebidas === 'comidas') {
       const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-      const { meals } = await fetch(ENDPOINT).then((response) => response.json());
-      setComes(meals);
+      let { meals } = await fetch(ENDPOINT).then((response) => response.json());
+      meals = meals.map((meal) => {
+        const { idMeal: id, strMeal: name, strMealThumb: image } = meal;
+        return { id, name, image, ...meal };
+      });
+      setComidas(meals.slice(0, MAX_LENGTH));
       setState({ ...state, currentFilter: category });
     } else {
       const ENDPOINT = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
-      const { drinks } = await fetch(ENDPOINT).then((response) => response.json());
-      setBebes(drinks);
+      let { drinks } = await fetch(ENDPOINT).then((response) => response.json());
+      drinks = drinks.map((drink) => {
+        const { idDrink: id, strDrink: name, strDrinkThumb: image } = drink;
+        return { id, name, image, ...drink };
+      });
+      setBebidas(drinks.slice(0, MAX_LENGTH));
       setState({ ...state, currentFilter: category });
     }
   };
@@ -55,36 +56,37 @@ function CategoryFilters({ comesOuBebes }) {
     const { currentFilter } = state;
 
     if (currentFilter === category) {
-      if (comesOuBebes === 'comes') {
-        setComes(backup);
+      if (comidasOuBebidas === 'comidas') {
+        setComidas(backup);
         setState({ ...state, currentFilter: '' });
       } else {
-        setBebes(backup);
+        setBebidas(backup);
         setState({ ...state, currentFilter: '' });
       }
       return null;
     }
 
     if (currentFilter === '') {
-      if (comesOuBebes === 'comes') {
-        setBackup(comes);
-        fetchCategories(category);
+      if (comidasOuBebidas === 'comidas') {
+        setBackup(comidas);
+        fetchByCategory(category);
       } else {
-        setBackup(bebes);
-        fetchCategories(category);
+        setBackup(bebidas);
+        console.log(category);
+        fetchByCategory(category);
       }
       return null;
     }
-    fetchCategories(category);
+    fetchByCategory(category);
   };
 
   const resetFilter = () => {
     const { currentFilter } = state;
     if (currentFilter !== '') {
-      if (comesOuBebes === 'comes') {
-        setComes(backup);
+      if (comidasOuBebidas === 'comidas') {
+        setComidas(backup);
       } else {
-        setBebes(backup);
+        setBebidas(backup);
       }
     }
   };
@@ -99,27 +101,23 @@ function CategoryFilters({ comesOuBebes }) {
         All
       </button>
       {
-        state.categories.map((category, index) => {
-          const MAX_LENGTH = 5;
-          return index < MAX_LENGTH
-            ? (
-              <button
-                data-testid={ `${category}-category-filter` }
-                key={ category }
-                type="button"
-                onClick={ () => toggleFilter(category) }
-              >
-                { category }
-              </button>
-            ) : null;
-        })
+        state.categories.map((category) => (
+          <button
+            data-testid={ `${category}-category-filter` }
+            key={ category }
+            type="button"
+            onClick={ () => toggleFilter(category) }
+          >
+            { category }
+          </button>
+        ))
       }
     </div>
   );
 }
 
 CategoryFilters.propTypes = {
-  comesOuBebes: PropTypes.string,
+  comidasOuBebidas: PropTypes.string,
 }.isRequired;
 
 export default CategoryFilters;

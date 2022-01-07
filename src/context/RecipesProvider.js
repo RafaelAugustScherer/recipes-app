@@ -1,30 +1,32 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import RecipesContext from './RecipesContext';
+import useRecipe from '../hooks/UseRecipe';
 
 function RecipesProvider({ children }) {
-  const ENDPOINT_COMES = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const ENDPOINT_BEBES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const MAX_LENGTH = 12;
+  const { fetchRecipes } = useRecipe(MAX_LENGTH);
 
-  const [comes, setComes] = useState([]);
-  const [bebes, setBebes] = useState([]);
+  const [comidas, setComidas] = useState([]);
+  const [bebidas, setBebidas] = useState([]);
   const [backup, setBackup] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
 
   useEffect(() => {
-    const fetchComes = async () => {
-      const { meals } = await fetch(ENDPOINT_COMES).then((response) => response.json());
-      setComes(meals);
+    const fetchComidas = async () => {
+      const meals = await fetchRecipes('comidas');
+      setComidas(meals);
     };
 
-    const fetchBebes = async () => {
-      const { drinks } = await fetch(ENDPOINT_BEBES).then((response) => response.json());
-      setBebes(drinks);
+    const fetchBebidas = async () => {
+      const drinks = await fetchRecipes('bebidas');
+      setBebidas(drinks);
     };
 
-    fetchComes();
-    fetchBebes();
+    fetchComidas();
+    fetchBebidas();
+    // eslint-disable-next-line
   }, []);
 
   const startLocalStorage = () => {
@@ -51,10 +53,10 @@ function RecipesProvider({ children }) {
   const contextValue = {
     backup,
     setBackup,
-    comes,
-    setComes,
-    bebes,
-    setBebes,
+    comidas,
+    setComidas,
+    bebidas,
+    setBebidas,
     favoriteRecipes,
     setFavoriteRecipes,
     startLocalStorage,

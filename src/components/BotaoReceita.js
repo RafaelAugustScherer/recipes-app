@@ -80,7 +80,7 @@ function BotaoReceita({ url }) {
 }
 
 BotaoReceita.propTypes = {
-  comesOuBebes: PropTypes.string,
+  comidasOuBebidas: PropTypes.string,
   url: PropTypes.string,
 }.isRequired;
 

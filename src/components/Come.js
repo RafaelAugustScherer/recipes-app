@@ -9,8 +9,8 @@ function Come() {
   const { refeicao, recomendadas } = useContext(DetailsContext);
   if (Object.keys(refeicao).length === 0) return null;
   const {
-    strMeal,
-    strMealThumb,
+    name,
+    image,
     strCategory,
     strInstructions,
     strYoutube = '',
@@ -23,13 +23,13 @@ function Come() {
     <>
       <img
         data-testid="recipe-photo"
-        src={ strMealThumb }
+        src={ image }
         alt="Recipe"
         className="img-details"
       />
-      <p data-testid="recipe-title">{ strMeal }</p>
+      <p data-testid="recipe-title">{ name }</p>
       <p data-testid="recipe-category">{ strCategory }</p>
-      <BotaoShareAndFavorite />
+      <BotaoShareAndFavorite type="comida" />
       <h2>Ingredients</h2>
       <Ingredientes />
       <h2>Instructions</h2>
@@ -40,7 +40,7 @@ function Come() {
         width="200"
         height="300"
         src={ newStrYoutube }
-        title={ strMeal }
+        title={ name }
         frameBorder="0"
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
         allowFullScreen
@@ -48,13 +48,13 @@ function Come() {
       <h2>Recomendadas</h2>
       <div className="carrossel">
         { recomendadas
-          .map(({ strDrinkThumb, strDrink, idDrink }, index) => (
+          .map(({ id, name: drinkName, image: drinkImage }, index) => (
             <CardRecomendacao
-              key={ strDrink }
-              thumb={ strDrinkThumb }
-              name={ strDrink }
+              key={ drinkName }
+              thumb={ drinkImage }
+              name={ drinkName }
               index={ index }
-              id={ idDrink }
+              id={ id }
               url="bebidas"
             />
           )) }
@@ -69,8 +69,8 @@ Come.propTypes = {
   refeicao: PropTypes.shape({
     strCategory: PropTypes.string,
     strInstructions: PropTypes.string,
-    strMeal: PropTypes.string,
-    strMealThumb: PropTypes.string,
+    name: PropTypes.string,
+    image: PropTypes.string,
     strYoutube: PropTypes.string,
   }),
 }.isRequired;

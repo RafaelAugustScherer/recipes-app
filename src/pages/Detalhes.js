@@ -15,10 +15,7 @@ function Detalhes({ match: { url } }) {
     setId,
     setIsInProgress } = useContext(DetailsContext);
   const { startLocalStorage } = useContext(RecipesContext);
-  let [, comesOuBebes] = url.split('/');
-  const [, , urlId, progressUrl] = url.split('/');
-  if (comesOuBebes === 'comidas') comesOuBebes = 'comes';
-  if (comesOuBebes === 'bebidas') comesOuBebes = 'bebes';
+  const [, comidasOuBebidas, urlId, progressUrl] = url.split('/');
 
   const MAX_LENGTH = 6;
   const { fetchRecipes, fetchRecipeById } = UseRecipe(MAX_LENGTH);
@@ -29,18 +26,18 @@ function Detalhes({ match: { url } }) {
   const getRecipeStatus = () => {
     const { cocktails, meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-    if (comesOuBebes === 'comes' && Object.keys(meals).includes(urlId)) {
+    if (comidasOuBebidas === 'comidas' && Object.keys(meals).includes(urlId)) {
       setIngredientes(meals[urlId]);
-    } else if (comesOuBebes === 'bebes' && Object.keys(cocktails).includes(urlId)) {
+    } else if (comidasOuBebidas === 'bebes' && Object.keys(cocktails).includes(urlId)) {
       setIngredientes(cocktails[urlId]);
     }
   };
 
   const fetchRecipe = async () => {
     /* setIsLoading(true); */
-    const newRefeicao = await fetchRecipeById(comesOuBebes, urlId);
+    const newRefeicao = await fetchRecipeById(comidasOuBebidas, urlId);
     const newRecomendadas = await fetchRecipes(
-      comesOuBebes === 'comes' ? 'bebes' : 'comes',
+      comidasOuBebidas === 'comidas' ? 'bebidas' : 'comidas',
     );
     /* setIsLoading(false); */
     setRefeicao(newRefeicao);
@@ -74,9 +71,9 @@ function Detalhes({ match: { url } }) {
         <p>Link copiado!</p>
       </Toast> */}
       {
-        comesOuBebes === 'comes' ? <Come /> : <Bebe />
+        comidasOuBebidas === 'comidas' ? <Come /> : <Bebe />
       }
-      <BotaoReceita url={ url } comesOuBebes={ comesOuBebes } />
+      <BotaoReceita url={ url } comidasOuBebidas={ comidasOuBebidas } />
     </div>
   );
   /*  ); */

@@ -2,32 +2,32 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
-import UseRecipe from '../hooks/UseRecipe';
+import useRecipe from '../hooks/UseRecipe';
 
-function BarradeBusca({ comesOuBebes }) {
+function BarradeBusca({ comidasOuBebidas }) {
   const INGREDIENTE = 'Ingrediente';
   const NOME = 'Nome';
   const PRIMEIRA_LETRA = 'Primeira Letra';
 
   const [value, setValue] = useState('');
   const [filter, setFilter] = useState(INGREDIENTE);
-  const { comes, setComes, bebes, setBebes } = useContext(RecipesContext);
+  const { comidas, setComidas, bebidas, setBebidas } = useContext(RecipesContext);
   const {
     fetchRecipesByIngredient,
     fetchRecipesByName,
     fetchRecipesByFirstLetter,
-  } = UseRecipe();
+  } = useRecipe();
   const history = useHistory();
 
   const handleSearch = async () => {
-    let newFood = comesOuBebes === 'comes' ? [...comes] : [...bebes];
+    let newSearch = comidasOuBebidas === 'comidas' ? [...comidas] : [...bebidas];
     switch (filter) {
     case INGREDIENTE: {
-      newFood = await fetchRecipesByIngredient(comesOuBebes, value);
+      newSearch = await fetchRecipesByIngredient(comidasOuBebidas, value);
       break;
     }
     case NOME: {
-      newFood = await fetchRecipesByName(comesOuBebes, value);
+      newSearch = await fetchRecipesByName(comidasOuBebidas, value);
       break;
     }
     case PRIMEIRA_LETRA: {
@@ -35,23 +35,26 @@ function BarradeBusca({ comesOuBebes }) {
         global.alert('Sua busca deve conter somente 1 (um) caracter');
         return null;
       }
-      newFood = await fetchRecipesByFirstLetter(comesOuBebes, value);
+      newSearch = await fetchRecipesByFirstLetter(comidasOuBebidas, value);
       break;
     }
     default:
       return null;
     }
-    if (newFood === null) {
+    if (!newSearch) {
       global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       return null;
     }
 
-    if (comesOuBebes === 'comes') {
-      if (newFood.length === 1) history.push(`/comidas/${newFood[0].idMeal}`);
-      setComes(newFood);
+    if (newSearch.length === 1) {
+      history.push(`/${comidasOuBebidas}/${newSearch[0].id}`);
+    }
+
+    const MAX_LENGTH = 12;
+    if (comidasOuBebidas === 'comidas') {
+      setComidas(newSearch.slice(0, MAX_LENGTH));
     } else {
-      if (newFood.length === 1) history.push(`/bebidas/${newFood[0].idDrink}`);
-      setBebes(newFood);
+      setBebidas(newSearch.slice(0, MAX_LENGTH));
     }
   };
 
@@ -108,7 +111,7 @@ function BarradeBusca({ comesOuBebes }) {
 }
 
 BarradeBusca.propTypes = {
-  comesOuBebes: PropTypes.string,
+  comidasOuBebidas: PropTypes.string,
 }.isRequired;
 
 export default BarradeBusca;

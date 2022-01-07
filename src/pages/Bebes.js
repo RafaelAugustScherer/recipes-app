@@ -6,29 +6,25 @@ import CategoryFilters from '../components/CategoryFilters';
 import MenuInferior from '../components/MenuInferior';
 
 function Bebes() {
-  const { bebes } = useContext(RecipesContext);
+  const { bebidas } = useContext(RecipesContext);
   return (
     <>
-      <Header title="Bebidas" comesOuBebes="bebes" />
+      <Header title="Bebidas" comidasOuBebidas="bebidas" />
       <div>
-        <CategoryFilters comesOuBebes="bebes" />
+        <CategoryFilters comidasOuBebidas="bebidas" />
         {
-          bebes.map((bebe, index) => {
-            const { strDrinkThumb, strDrink, idDrink } = bebe;
-            const MAX_LENGTH = 12;
-            if (index < MAX_LENGTH) {
-              return (
-                <Card
-                  key={ strDrink }
-                  thumb={ strDrinkThumb }
-                  name={ strDrink }
-                  index={ index }
-                  id={ idDrink }
-                  url="bebidas"
-                />
-              );
-            }
-            return null;
+          bebidas.map((bebida, index) => {
+            const { id, name, image } = bebida;
+            return (
+              <Card
+                key={ name }
+                thumb={ image }
+                name={ name }
+                index={ index }
+                id={ id }
+                url="bebidas"
+              />
+            );
           })
         }
       </div>
