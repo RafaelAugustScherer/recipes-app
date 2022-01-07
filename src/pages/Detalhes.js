@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Toast } from 'react-bootstrap';
 import UseRecipe from '../hooks/UseRecipe';
 import Come from '../components/Come';
 import Bebe from '../components/Bebe';
 import BotaoReceita from '../components/BotaoReceita';
 import DetailsContext from '../context/DetailsContext';
+import RecipesContext from '../context/RecipesContext';
 
 function Detalhes({ match: { url } }) {
   const {
@@ -13,25 +13,14 @@ function Detalhes({ match: { url } }) {
     setIngredientes,
     setRecomendadas,
     setId,
-    setIsInProgress,
-    shareToast,
-    setShareToast } = useContext(DetailsContext);
+    setIsInProgress } = useContext(DetailsContext);
+  const { startLocalStorage } = useContext(RecipesContext);
   const [, comidasOuBebidas, urlId, progressUrl] = url.split('/');
 
   const MAX_LENGTH = 6;
   const { fetchRecipes, fetchRecipeById } = UseRecipe(MAX_LENGTH);
   /* const [isLoading, setIsLoading] = useState(false); */
 
-  const startLocalStorage = () => {
-    if (!localStorage.getItem('inProgressRecipes')) {
-      localStorage
-        .setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
-    }
-    if (!localStorage.getItem('doneRecipes')) {
-      localStorage
-        .setItem('doneRecipes', JSON.stringify([]));
-    }
-  };
   startLocalStorage();
 
   const getRecipeStatus = () => {
@@ -73,14 +62,14 @@ function Detalhes({ match: { url } }) {
       <p>Loading...</p>
     ) : ( */
     <div>
-      <Toast
+      {/* <Toast
         onClose={ () => setShareToast(false) }
         show={ shareToast }
         delay={ 3000 }
         autohide
       >
         <p>Link copiado!</p>
-      </Toast>
+      </Toast> */}
       {
         comidasOuBebidas === 'comidas' ? <Come /> : <Bebe />
       }

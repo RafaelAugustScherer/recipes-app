@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import CardRecipes from '../components/CardRecipes';
 import FilterButtons from '../components/FilterButtons';
 import Header from '../components/Header';
+import RecipesContext from '../context/RecipesContext';
 
 function ReceitasFavoritas() {
-  const [recipes, setRecipes] = useState([]);
-  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const {
+    startLocalStorage, favoriteRecipes, setFavoriteRecipes } = useContext(RecipesContext);
+  startLocalStorage();
+  const storageFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   useEffect(() => {
-    setRecipes(favoriteRecipes);
+    setFavoriteRecipes(storageFavoriteRecipes);
   // eslint-disable-next-line
   }, []);
 
@@ -15,12 +18,12 @@ function ReceitasFavoritas() {
     <>
       <Header title="Receitas Favoritas" />
       <FilterButtons
-        setRecipes={ setRecipes }
+        setRecipes={ setFavoriteRecipes }
         favorite
-        favoriteRecipes={ favoriteRecipes }
+        favoriteRecipes={ storageFavoriteRecipes }
       />
       {
-        recipes.map((recipe, index) => (
+        favoriteRecipes.map((recipe, index) => (
           <CardRecipes
             key={ recipe.name }
             index={ index }

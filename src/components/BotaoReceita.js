@@ -53,17 +53,13 @@ function BotaoReceita({ url, comidasOuBebidas }) {
 
     const doneDate = Date.now();
     const {
-      strMeal,
-      strDrink,
-      strMealThumb,
-      strDrinkThumb,
-      strAlcoholic: alcoholicOrNot = '',
+      name,
+      image,
+      alcoholicOrNot,
       strArea: area,
       strCategory: category,
       strTags: tags = '' } = refeicao;
 
-    const name = strMeal || strDrink;
-    const image = strMealThumb || strDrinkThumb;
     const type = comidasOuBebidas === 'comidas' ? 'comida' : 'bebida';
 
     const newDone = {

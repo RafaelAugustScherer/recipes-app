@@ -10,6 +10,7 @@ function RecipesProvider({ children }) {
   const [comidas, setComidas] = useState([]);
   const [bebidas, setBebidas] = useState([]);
   const [backup, setBackup] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   useEffect(() => {
     const fetchComidas = async () => {
@@ -27,6 +28,22 @@ function RecipesProvider({ children }) {
     // eslint-disable-next-line
   }, []);
 
+  const startLocalStorage = () => {
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage
+        .setItem('inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }));
+    }
+    if (!localStorage.getItem('doneRecipes')) {
+      localStorage
+        .setItem('doneRecipes', JSON.stringify([]));
+    }
+
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify([]));
+    }
+  };
+
   const contextValue = {
     backup,
     setBackup,
@@ -34,6 +51,9 @@ function RecipesProvider({ children }) {
     setComidas,
     bebidas,
     setBebidas,
+    favoriteRecipes,
+    setFavoriteRecipes,
+    startLocalStorage,
   };
 
   return (
