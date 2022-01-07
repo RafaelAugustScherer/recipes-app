@@ -6,24 +6,24 @@ import CategoryFilters from '../components/CategoryFilters';
 import MenuInferior from '../components/MenuInferior';
 
 function Comes() {
-  const { comes } = useContext(RecipesContext);
+  const { comidas } = useContext(RecipesContext);
   return (
     <>
-      <Header title="Comidas" comesOuBebes="comes" />
+      <Header title="Comidas" comidasOuBebidas="comidas" />
       <div>
-        <CategoryFilters comesOuBebes="comes" />
+        <CategoryFilters comidasOuBebidas="comidas" />
         {
-          comes.map((come, index) => {
-            const { strMealThumb, strMeal, idMeal } = come;
+          comidas.map((comida, index) => {
+            const { id, name, image } = comida;
             const MAX_LENGTH = 12;
             if (index < MAX_LENGTH) {
               return (
                 <Card
-                  key={ strMeal }
-                  thumb={ strMealThumb }
-                  name={ strMeal }
+                  key={ name }
+                  thumb={ image }
+                  name={ name }
                   index={ index }
-                  id={ idMeal }
+                  id={ id }
                   url="comidas"
                 />
               );

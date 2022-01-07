@@ -14,8 +14,8 @@ function DetailsProvider({ children }) {
   const mealsOrCocktails = useCallback(() => {
     // const { meals, cocktails } = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (Object.keys(refeicao).length === 0) return {};
-    if (refeicao.strMeal) return 'meals';
-    return 'cocktails';
+    if (refeicao.strAlcoholic) return 'cocktails';
+    return 'meals';
   }, [refeicao]);
 
   const contextValue = {

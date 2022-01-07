@@ -1,31 +1,43 @@
 function UseDrink() {
-  const fetchDrinks = async (MAX_LENGTH) => {
-    const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((response) => response.json());
-    return drinks.slice(0, MAX_LENGTH);
+  const convertApiResult = (drink) => {
+    const { idDrink: id, strDrink: name, strDrinkThumb: image, strAlcoholic } = drink;
+    return { id, name, image, alcoholicOrNot: strAlcoholic, ...drink };
+  };
+
+  const fetchDrinks = async (maxLength) => {
+    let { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((response) => response.json());
+    drinks = drinks.map((drink) => convertApiResult(drink));
+    return drinks.slice(0, maxLength);
+  };
+
+  const fetchDrinkCategories = async (maxLength) => {
+    const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list').then((response) => response.json());
+    return drinks.map(({ strCategory }) => strCategory).slice(0, maxLength);
   };
 
   const fetchDrinkById = async (id) => {
     const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`).then((response) => response.json());
-    return drinks[0];
+    return convertApiResult(drinks[0]);
   };
 
   const fetchDrinksByIngredient = async (ingredient) => {
     const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
-    return drinks;
+    return convertApiResult(drinks[0]);
   };
 
   const fetchDrinksByName = async (name) => {
     const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`).then((response) => response.json());
-    return drinks;
+    return convertApiResult(drinks[0]);
   };
 
   const fetchDrinksByFirstLetter = async (letter) => {
     const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`).then((response) => response.json());
-    return drinks;
+    return convertApiResult(drinks[0]);
   };
 
   return {
     fetchDrinks,
+    fetchDrinkCategories,
     fetchDrinkById,
     fetchDrinksByIngredient,
     fetchDrinksByName,

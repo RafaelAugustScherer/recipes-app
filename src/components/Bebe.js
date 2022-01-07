@@ -9,22 +9,22 @@ function Bebe() {
   const { refeicao, recomendadas } = useContext(DetailsContext);
   if (Object.keys(refeicao).length === 0) return null;
   const {
-    strDrink,
-    strDrinkThumb,
+    name,
+    image,
     strCategory,
     strInstructions,
-    strAlcoholic,
+    alcoholicOrNot,
   } = refeicao;
 
   return (
     <>
       <img
         data-testid="recipe-photo"
-        src={ strDrinkThumb }
+        src={ image }
         alt="Recipe"
       />
-      <p data-testid="recipe-title">{ strDrink }</p>
-      <p data-testid="recipe-category">{ `${strCategory} ${strAlcoholic}` }</p>
+      <p data-testid="recipe-title">{ name }</p>
+      <p data-testid="recipe-category">{ `${strCategory} ${alcoholicOrNot}` }</p>
       <BotaoShareAndFavorite />
       <h2>Ingredients</h2>
       <Ingredientes />
@@ -33,13 +33,13 @@ function Bebe() {
       <h2>Recomendadas</h2>
       <div className="carrossel">
         { recomendadas
-          .map(({ strMealThumb, strMeal, idMeal }, index) => (
+          .map(({ id, name: mealName, image: mealImage }, index) => (
             <CardRecomendacao
-              key={ strMeal }
-              thumb={ strMealThumb }
-              name={ strMeal }
+              key={ mealName }
+              thumb={ mealImage }
+              name={ mealName }
               index={ index }
-              id={ idMeal }
+              id={ id }
               url="comidas"
             />
           )) }
@@ -54,8 +54,8 @@ Bebe.propTypes = {
   refeicao: PropTypes.shape({
     strCategory: PropTypes.string,
     strInstructions: PropTypes.string,
-    strMeal: PropTypes.string,
-    strMealThumb: PropTypes.string,
+    name: PropTypes.string,
+    image: PropTypes.string,
     strYoutube: PropTypes.string,
   }),
 }.isRequired;

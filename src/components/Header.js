@@ -5,7 +5,7 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import BarradeBusca from './BarradeBusca';
 
-function Header({ title, comesOuBebes }) {
+function Header({ title, comidasOuBebidas }) {
   const [isBusca, setBusca] = useState(false);
   const buscaDisponivel = ['Comidas', 'Bebidas', 'Explorar Origem'];
 
@@ -27,7 +27,7 @@ function Header({ title, comesOuBebes }) {
           >
             <img src={ searchIcon } alt="profile icon" />
           </button>
-          {isBusca && <BarradeBusca comesOuBebes={ comesOuBebes } />}
+          {isBusca && <BarradeBusca comidasOuBebidas={ comidasOuBebidas } />}
         </>
       )}
     </header>
@@ -36,7 +36,7 @@ function Header({ title, comesOuBebes }) {
 
 Header.propTypes = {
   title: PropTypes.string,
-  comesOuBebes: PropTypes.string,
+  comidasOuBebidas: PropTypes.string,
 }.isRequired;
 
 export default Header;

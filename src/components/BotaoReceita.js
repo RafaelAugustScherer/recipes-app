@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import DetailsContext from '../context/DetailsContext';
 
-function BotaoReceita({ url, comesOuBebes }) {
+function BotaoReceita({ url, comidasOuBebidas }) {
   const {
     id,
     ingredientes,
@@ -64,7 +64,7 @@ function BotaoReceita({ url, comesOuBebes }) {
 
     const name = strMeal || strDrink;
     const image = strMealThumb || strDrinkThumb;
-    const type = comesOuBebes === 'comes' ? 'comida' : 'bebida';
+    const type = comidasOuBebidas === 'comidas' ? 'comida' : 'bebida';
 
     const newDone = {
       id,
@@ -118,7 +118,7 @@ function BotaoReceita({ url, comesOuBebes }) {
 }
 
 BotaoReceita.propTypes = {
-  comesOuBebes: PropTypes.string,
+  comidasOuBebidas: PropTypes.string,
   url: PropTypes.string,
 }.isRequired;
 

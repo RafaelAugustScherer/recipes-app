@@ -23,28 +23,28 @@ function useFavorite(id) {
 
   const addComida = (newFavorite) => {
     const {
-      strMeal: name,
+      name,
+      image,
       strArea: area,
-      strMealThumb: image,
       strCategory: category } = newFavorite;
     return { name, area, image, category, alcoholicOrNot: '' };
   };
 
   const addBebida = (newFavorite) => {
     const {
-      strDrink: name,
-      strDrinkThumb: image,
+      name,
+      image,
       strCategory: category,
-      strAlcoholic: alcoholicOrNot } = newFavorite;
+      alcoholicOrNot } = newFavorite;
     return { name, area: '', image, category, alcoholicOrNot };
   };
 
   const addFavorite = async (type) => {
     const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const comesOuBebes = type === 'comida' ? 'comes' : 'bebes';
-    let newFavorite = await fetchRecipeById(comesOuBebes, id);
+    const comidasOuBebidas = type === 'comida' ? 'comidas' : 'bebidas';
+    let newFavorite = await fetchRecipeById(comidasOuBebidas, id);
 
-    newFavorite = comesOuBebes === 'comes'
+    newFavorite = comidasOuBebidas === 'comidas'
       ? addComida(newFavorite) : addBebida(newFavorite);
 
     const newFavorites = [
