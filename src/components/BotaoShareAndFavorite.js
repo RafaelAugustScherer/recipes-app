@@ -6,7 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import DetailsContext from '../context/DetailsContext';
-import UseFavorite from '../hooks/UseFavorite';
+import useFavorite from '../hooks/useFavorite';
 import RecipesContext from '../context/RecipesContext';
 
 function BotaoShareAndFavorite({ id: propId, index, type }) {
@@ -15,7 +15,7 @@ function BotaoShareAndFavorite({ id: propId, index, type }) {
     mealsOrCocktails, setShareToast, shareToast } = useContext(DetailsContext);
   const id = contextId || propId;
   const { setFavoriteRecipes } = useContext(RecipesContext);
-  const { favorite, handleFavorite } = UseFavorite(id);
+  const { favorite, handleFavorite } = useFavorite(id);
   let testIdShareBtn = 'share-btn';
   let testIdFavoriteBtn = 'favorite-btn';
   if (typeof index === 'number') {
