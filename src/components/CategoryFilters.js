@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
-import useRecipe from '../hooks/UseRecipe';
+import useRecipe from '../hooks/useRecipe';
 
 function CategoryFilters({ comidasOuBebidas }) {
   const [state, setState] = useState({

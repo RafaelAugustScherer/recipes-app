@@ -1,27 +1,28 @@
-import UseDrink from './UseDrink';
-import UseMeal from './UseMeal';
+import useDrink from './useDrink';
+import useMeal from './useMeal';
 
-const {
-  fetchMeals,
-  fetchMealCategories,
-  fetchMealById,
-  fetchMealsByIngredient,
-  fetchMealsByName,
-  fetchMealsByFirstLetter,
-} = UseMeal();
+function useRecipe(maxLength) {
+  const COMIDAS = 'comidas';
 
-const {
-  fetchDrinks,
-  fetchDrinkCategories,
-  fetchDrinkById,
-  fetchDrinksByIngredient,
-  fetchDrinksByName,
-  fetchDrinksByFirstLetter,
-} = UseDrink();
+  const {
+    fetchMeals,
+    fetchMealCategories,
+    fetchMealById,
+    fetchMealsByIngredient,
+    fetchMealsByName,
+    fetchMealsByArea,
+    fetchMealsByFirstLetter,
+  } = useMeal();
 
-const COMIDAS = 'comidas';
+  const {
+    fetchDrinks,
+    fetchDrinkCategories,
+    fetchDrinkById,
+    fetchDrinksByIngredient,
+    fetchDrinksByName,
+    fetchDrinksByFirstLetter,
+  } = useDrink();
 
-function UseRecipe(maxLength) {
   const fetchRecipes = async (comidasOuBebidas) => {
     const recipes = comidasOuBebidas === COMIDAS
       ? await fetchMeals(maxLength)
@@ -57,6 +58,11 @@ function UseRecipe(maxLength) {
     return recipes;
   };
 
+  const fetchRecipesByArea = async (area) => {
+    const recipes = await fetchMealsByArea(area, maxLength);
+    return recipes;
+  };
+
   const fetchRecipesByFirstLetter = async (comidasOuBebidas, letter) => {
     const recipes = comidasOuBebidas === COMIDAS
       ? await fetchMealsByFirstLetter(letter)
@@ -70,8 +76,9 @@ function UseRecipe(maxLength) {
     fetchRecipeById,
     fetchRecipesByIngredient,
     fetchRecipesByName,
+    fetchRecipesByArea,
     fetchRecipesByFirstLetter,
   };
 }
 
-export default UseRecipe;
+export default useRecipe;

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import UseRecipe from '../hooks/UseRecipe';
+import useRecipe from '../hooks/useRecipe';
 import Come from '../components/Come';
 import Bebe from '../components/Bebe';
 import BotaoReceita from '../components/BotaoReceita';
@@ -18,7 +18,7 @@ function Detalhes({ match: { url } }) {
   const [, comidasOuBebidas, urlId, progressUrl] = url.split('/');
 
   const MAX_LENGTH = 6;
-  const { fetchRecipes, fetchRecipeById } = UseRecipe(MAX_LENGTH);
+  const { fetchRecipes, fetchRecipeById } = useRecipe(MAX_LENGTH);
   /* const [isLoading, setIsLoading] = useState(false); */
 
   startLocalStorage();

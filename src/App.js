@@ -13,12 +13,12 @@ import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarComidasArea from './pages/ExplorarComidasArea';
-import ExplorarBebidasArea from './pages/ExplorarBebidasArea';
 import ComidaIngredientes from './pages/ComidaIngrediente';
 import BebidaIngredientes from './pages/BebidaIngrediente';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import DetailsProvider from './context/DetailsProvider';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -46,11 +46,6 @@ function App() {
             />
             <Route
               exact
-              path="/explorar/bebidas/area"
-              component={ ExplorarBebidasArea }
-            />
-            <Route
-              exact
               path="/explorar/comidas/ingredientes"
               component={ ComidaIngredientes }
             />
@@ -61,6 +56,7 @@ function App() {
             />
             <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
             <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+            <Route path="/*" component={ NotFound } />
           </Switch>
         </DetailsProvider>
       </RecipesProvider>

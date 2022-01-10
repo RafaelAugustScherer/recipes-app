@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import RecipesContext from './RecipesContext';
-import useRecipe from '../hooks/UseRecipe';
+import useRecipe from '../hooks/useRecipe';
 
 function RecipesProvider({ children }) {
   const MAX_LENGTH = 12;

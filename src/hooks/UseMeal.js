@@ -1,13 +1,15 @@
-function UseMeal() {
-  const convertApiResult = (meal) => {
+function useMeal() {
+  const convertMeal = (meal) => {
     const alcoholicOrNot = '';
     const { idMeal: id, strMeal: name, strMealThumb: image } = meal;
     return { id, name, image, alcoholicOrNot, ...meal };
   };
 
+  const convertMeals = (meals) => (meals ? meals.map((meal) => convertMeal(meal)) : null);
+
   const fetchMeals = async (maxLength) => {
     let { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=').then((response) => response.json());
-    meals = meals.map((meal) => convertApiResult(meal));
+    meals = convertMeals(meals);
     return meals.slice(0, maxLength);
   };
 
@@ -18,25 +20,28 @@ function UseMeal() {
 
   const fetchMealById = async (id) => {
     const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).then((response) => response.json());
-    return convertApiResult(meals[0]);
+    return convertMeal(meals[0]);
   };
 
   const fetchMealsByIngredient = async (ingredient) => {
-    let { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
-    meals = meals ? meals.map((meal) => convertApiResult(meal)) : null;
-    return meals;
+    const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
+    return convertMeals(meals);
+  };
+
+  const fetchMealsByArea = async (area, maxLength) => {
+    let { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`).then((response) => response.json());
+    meals = convertMeals(meals);
+    return meals.slice(0, maxLength);
   };
 
   const fetchMealsByName = async (name) => {
-    let { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`).then((response) => response.json());
-    meals = meals ? meals.map((meal) => convertApiResult(meal)) : null;
-    return meals;
+    const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`).then((response) => response.json());
+    return convertMeals(meals);
   };
 
   const fetchMealsByFirstLetter = async (letter) => {
-    let { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`).then((response) => response.json());
-    meals = meals ? meals.map((meal) => convertApiResult(meal)) : null;
-    return meals;
+    const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`).then((response) => response.json());
+    return convertMeals(meals);
   };
 
   return {
@@ -45,8 +50,9 @@ function UseMeal() {
     fetchMealById,
     fetchMealsByIngredient,
     fetchMealsByName,
+    fetchMealsByArea,
     fetchMealsByFirstLetter,
   };
 }
 
-export default UseMeal;
+export default useMeal;
