@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import RecipesContext from './RecipesContext';
-import useRecipe from '../hooks/useRecipe';
+import UseRecipe from '../hooks/UseRecipe';
 
 function RecipesProvider({ children }) {
   const MAX_LENGTH = 12;
-  const { fetchRecipes } = useRecipe(MAX_LENGTH);
+  const { fetchRecipes } = UseRecipe(MAX_LENGTH);
 
   const [comidas, setComidas] = useState([]);
   const [bebidas, setBebidas] = useState([]);

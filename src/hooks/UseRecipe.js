@@ -1,5 +1,5 @@
-import useDrink from './useDrink';
-import useMeal from './useMeal';
+import useDrink from './UseDrink';
+import useMeal from './UseMeal';
 
 function useRecipe(maxLength) {
   const COMIDAS = 'comidas';

@@ -1,8 +1,8 @@
 import { useCallback, useState, useEffect } from 'react';
-import useRecipe from './useRecipe';
+import UseRecipe from './UseRecipe';
 
 function useFavorite(id) {
-  const { fetchRecipeById } = useRecipe();
+  const { fetchRecipeById } = UseRecipe();
 
   const isFavorite = useCallback(() => {
     if (!localStorage.getItem('favoriteRecipes')) {

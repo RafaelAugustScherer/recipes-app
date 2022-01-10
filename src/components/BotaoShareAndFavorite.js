@@ -6,7 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import DetailsContext from '../context/DetailsContext';
-import useFavorite from '../hooks/useFavorite';
+import useFavorite from '../hooks/UseFavorite';
 import RecipesContext from '../context/RecipesContext';
 
 function BotaoShareAndFavorite({ id: propId, index, type }) {

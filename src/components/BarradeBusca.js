@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
-import useRecipe from '../hooks/UseRecipe';
+import UseRecipe from '../hooks/UseRecipe';
 
 function BarradeBusca({ comidasOuBebidas }) {
   const INGREDIENTE = 'Ingrediente';
@@ -16,7 +16,7 @@ function BarradeBusca({ comidasOuBebidas }) {
     fetchRecipesByIngredient,
     fetchRecipesByName,
     fetchRecipesByFirstLetter,
-  } = useRecipe();
+  } = UseRecipe();
   const history = useHistory();
 
   const handleSearch = async () => {

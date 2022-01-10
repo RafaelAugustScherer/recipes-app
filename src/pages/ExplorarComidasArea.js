@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
-import useRecipe from '../hooks/useRecipe';
+import UseRecipe from '../hooks/UseRecipe';
 import Card from '../components/Card';
 
 function ExplorarComidasArea() {
@@ -10,7 +10,7 @@ function ExplorarComidasArea() {
   const [recipes, setRecipes] = useState([]);
 
   const MAX_LENGTH = 12;
-  const { fetchRecipes, fetchRecipesByArea } = useRecipe(MAX_LENGTH);
+  const { fetchRecipes, fetchRecipesByArea } = UseRecipe(MAX_LENGTH);
 
   useEffect(() => {
     const fetchStartRecipes = async () => {
