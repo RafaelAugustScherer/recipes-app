@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
-import useRecipe from '../hooks/UseRecipe';
+import UseRecipe from '../hooks/UseRecipe';
 
 function CategoryFilters({ comidasOuBebidas }) {
   const [state, setState] = useState({
@@ -18,7 +18,7 @@ function CategoryFilters({ comidasOuBebidas }) {
   } = useContext(RecipesContext);
 
   const MAX_LENGTH_CATEGORY = 5;
-  const { fetchCategories } = useRecipe(MAX_LENGTH_CATEGORY);
+  const { fetchCategories } = UseRecipe(MAX_LENGTH_CATEGORY);
 
   useEffect(() => {
     const setInitialState = async () => {

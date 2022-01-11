@@ -1,12 +1,16 @@
-function UseDrink() {
-  const convertApiResult = (drink) => {
+function useDrink() {
+  const convertDrink = (drink) => {
     const { idDrink: id, strDrink: name, strDrinkThumb: image, strAlcoholic } = drink;
     return { id, name, image, alcoholicOrNot: strAlcoholic, ...drink };
   };
 
+  const convertDrinks = (drinks) => (
+    drinks ? drinks.map((drink) => convertDrink(drink)) : null
+  );
+
   const fetchDrinks = async (maxLength) => {
     let { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((response) => response.json());
-    drinks = drinks.map((drink) => convertApiResult(drink));
+    drinks = convertDrinks(drinks);
     return drinks.slice(0, maxLength);
   };
 
@@ -17,25 +21,22 @@ function UseDrink() {
 
   const fetchDrinkById = async (id) => {
     const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`).then((response) => response.json());
-    return convertApiResult(drinks[0]);
+    return convertDrink(drinks[0]);
   };
 
   const fetchDrinksByIngredient = async (ingredient) => {
-    let { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
-    drinks = drinks ? drinks.map((drink) => convertApiResult(drink)) : null;
-    return drinks;
+    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
+    return convertDrinks(drinks);
   };
 
   const fetchDrinksByName = async (name) => {
-    let { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`).then((response) => response.json());
-    drinks = drinks ? drinks.map((drink) => convertApiResult(drink)) : null;
-    return drinks;
+    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`).then((response) => response.json());
+    return convertDrinks(drinks);
   };
 
   const fetchDrinksByFirstLetter = async (letter) => {
-    let { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`).then((response) => response.json());
-    drinks = drinks ? drinks.map((drink) => convertApiResult(drink)) : null;
-    return drinks;
+    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`).then((response) => response.json());
+    return convertDrinks(drinks);
   };
 
   return {
@@ -48,4 +49,4 @@ function UseDrink() {
   };
 }
 
-export default UseDrink;
+export default useDrink;
