@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
 import UseRecipe from '../hooks/UseRecipe';
+import categoryCss from '../style/Category.module.css';
 
 function CategoryFilters({ comidasOuBebidas }) {
   const [state, setState] = useState({
@@ -66,7 +67,7 @@ function CategoryFilters({ comidasOuBebidas }) {
   };
 
   return (
-    <div>
+    <div className={ categoryCss.category }>
       <button
         data-testid="All-category-filter"
         type="button"

@@ -4,29 +4,32 @@ import { Link } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import BarradeBusca from './BarradeBusca';
+import headerCss from '../style/header.module.css';
 
 function Header({ title, comidasOuBebidas }) {
   const [isBusca, setBusca] = useState(false);
   const buscaDisponivel = ['Comidas', 'Bebidas', 'Explorar Origem'];
 
   return (
-    <header>
-      <Link to="/perfil">
-        <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
-      </Link>
-      <div data-testid="page-title">
-        <p>{ title }</p>
+    <header className={ headerCss.header }>
+      <div className={ headerCss.title_container }>
+        <Link to="/perfil" className={ headerCss.profileIcon }>
+          <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
+        </Link>
+        <div data-testid="page-title">
+          <p className={ headerCss.title }>{ title }</p>
+        </div>
       </div>
       { buscaDisponivel.includes(title) && (
         <>
-          <button
-            type="button"
-            src={ searchIcon }
+          <input
+            type="image"
+            className={ headerCss.searchIcon }
             data-testid="search-top-btn"
             onClick={ () => setBusca(!isBusca) }
-          >
-            <img src={ searchIcon } alt="profile icon" />
-          </button>
+            src={ searchIcon }
+            alt="search-top-btn"
+          />
           {isBusca && <BarradeBusca comidasOuBebidas={ comidasOuBebidas } />}
         </>
       )}

@@ -4,6 +4,7 @@ import './App.css';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import './pages/Login.css';
+import './pages/Comes.css';
 import Login from './pages/Login';
 import Comes from './pages/Comes';
 import RecipesProvider from './context/RecipesProvider';

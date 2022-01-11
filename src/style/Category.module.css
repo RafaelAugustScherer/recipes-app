@@ -1,0 +1,40 @@
+.category {
+  top: 15%;
+  display: flex;
+  justify-content: space-around;
+  scroll-padding: 10px;
+  padding-right: 10px;
+  gap: 3px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.category::-webkit-scrollbar {
+  display: none;
+}
+
+.category button {
+  background-color: rgba(124, 123, 123, 0.37);
+  padding: 10px 15px;
+  border-radius: 35px;
+  color: #000000;
+  border: none;
+  font-size: 15px;
+  scroll-snap-align: start;
+}
+
+.category button:nth-child( 1 ) {
+  margin-left: 150px;
+}
+
+.category button:hover {
+  background-color: rgb(255, 157, 0);
+  color: black;
+}
+/* 
+.btnCategory {
+  background-color: red;
+} */

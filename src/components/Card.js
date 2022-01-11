@@ -11,7 +11,7 @@ function Card({ thumb, name, index, url, id }) {
         alt={ name }
         className="card-image"
       />
-      <p data-testid={ `${index}-card-name` }>{ name }</p>
+      <p data-testid={ `${index}-card-name` } className="card-name">{ name }</p>
     </Link>
   );
 }

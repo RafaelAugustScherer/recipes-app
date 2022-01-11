@@ -16,7 +16,7 @@ function Comes() {
   return (
     <>
       <Header title="Comidas" comidasOuBebidas="comidas" />
-      <div>
+      <div className="meals">
         <CategoryFilters comidasOuBebidas="comidas" />
         {
           (comidas || comidasBackup).map((comida, index) => {

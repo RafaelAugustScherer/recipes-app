@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import UseRecipe from '../hooks/UseRecipe';
+import headerCss from '../style/header.module.css';
 
 function BarradeBusca({ comidasOuBebidas }) {
   const INGREDIENTE = 'Ingrediente';
@@ -71,46 +72,49 @@ function BarradeBusca({ comidasOuBebidas }) {
   };
 
   return (
-    <div>
+    <div className={ headerCss.searchBar }>
       <input
+        className={ headerCss.inputBar }
         data-testid="search-input"
         type="text"
         placeholder="Buscar Receita"
         onChange={ ({ target: { value: newValue } }) => setValue(newValue) }
       />
-      <label htmlFor="ingrediente">
-        <input
-          data-testid="ingredient-search-radio"
-          type="radio"
-          id="ingrediente"
-          value={ INGREDIENTE }
-          checked={ filter === INGREDIENTE }
-          onChange={ () => setFilter(INGREDIENTE) }
-        />
-      </label>
-      Ingrediente
-      <label htmlFor="nome">
-        <input
-          data-testid="name-search-radio"
-          type="radio"
-          id="nome"
-          value={ NOME }
-          checked={ filter === NOME }
-          onChange={ () => setFilter(NOME) }
-        />
-        Nome
-      </label>
-      <label htmlFor="primeira-letra">
-        <input
-          data-testid="first-letter-search-radio"
-          type="radio"
-          id="primeira-letra"
-          value={ PRIMEIRA_LETRA }
-          checked={ filter === PRIMEIRA_LETRA }
-          onChange={ () => setFilter(PRIMEIRA_LETRA) }
-        />
-        Primeira Letra
-      </label>
+      <div className={ headerCss.radios_container }>
+        <label htmlFor="ingrediente">
+          <input
+            data-testid="ingredient-search-radio"
+            type="radio"
+            id="ingrediente"
+            value={ INGREDIENTE }
+            checked={ filter === INGREDIENTE }
+            onChange={ () => setFilter(INGREDIENTE) }
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="nome">
+          <input
+            data-testid="name-search-radio"
+            type="radio"
+            id="nome"
+            value={ NOME }
+            checked={ filter === NOME }
+            onChange={ () => setFilter(NOME) }
+          />
+          Nome
+        </label>
+        <label htmlFor="primeira-letra">
+          <input
+            data-testid="first-letter-search-radio"
+            type="radio"
+            id="primeira-letra"
+            value={ PRIMEIRA_LETRA }
+            checked={ filter === PRIMEIRA_LETRA }
+            onChange={ () => setFilter(PRIMEIRA_LETRA) }
+          />
+          Primeira Letra
+        </label>
+      </div>
       <button
         data-testid="exec-search-btn"
         type="button"
