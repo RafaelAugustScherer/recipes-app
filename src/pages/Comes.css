@@ -1,0 +1,120 @@
+/* body {
+  align-items: center;
+  background: black;
+  background-repeat: no-repeat;
+  display: flex;
+  min-height: 100vh;
+  min-width: 100vw;
+  justify-content: center;
+} */
+
+.meals {
+  align-items: center;
+  background: #efefef;
+  color: #464646;
+  font-family: sans-serif;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: flex;
+  /* overflow-x: auto; */
+  /* scroll-snap-type: x mandatory; */
+  /* -webkit-overflow-scrolling: touch; */
+  /* scroll-behavior: smooth; */
+  gap: 20px;
+  padding-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.itens-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100vw;
+  gap: 20px;
+
+}
+
+
+/* .category-filter {
+  width: 250px;
+  color: red;
+  display: grid;
+  flex-direction: row;
+  background: rgba(128, 128, 128, 0.541);
+} */
+
+.img-details {
+  width: 250px;
+}
+
+.instructions {
+  max-width: 100%;
+} 
+
+.carrossel {
+  height: 300px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.card-recomendations {
+  border: 1px solid black;
+  display: inline-block;
+  width: 200px;
+}
+
+.img-recomendations {
+  max-height: 80%;
+  max-width: 80%;
+}
+
+.card {
+  width: 30%;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 40%;
+  background-size: cover;
+  margin: 0 20px;
+  /* border: 1px rgba(0, 0, 0, 0.356) solid; */
+  background-color: #efefef;
+  border-radius: 20%;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+  background-image: linear-gradient(45deg, #ff0000ca, #ff0000d7);
+  text-decoration: none;
+  justify-content: space-between;
+  color: white;
+}
+
+.card:hover {
+  background:rgb(255, 157, 0);
+  letter-spacing: 1.5px;
+  color: black
+}
+.card-image {
+  width: 100%;
+  border-radius: 20%;
+}
+
+.card-name {
+  text-align: center;
+  margin-bottom: 15%;
+  font-size: 20px;
+
+}
+
+.start-recipe-btn {
+  bottom: 0;
+  left: 0;
+  margin: 20px;
+  position: fixed;
+}
+
+footer {
+  bottom: 0;
+  position: fixed;
+}

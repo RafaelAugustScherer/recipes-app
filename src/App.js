@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import './pages/Login.css';
 import Login from './pages/Login';
 import Comes from './pages/Comes';
 import RecipesProvider from './context/RecipesProvider';

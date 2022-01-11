@@ -1,0 +1,7 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  transition: all 0.3s ease;
+  background-image: linear-gradient(45deg, rgba(255, 157, 0, 0.863), #e0d1009d);
+  color: #000000;
+}

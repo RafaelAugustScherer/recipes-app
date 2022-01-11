@@ -30,31 +30,57 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={ handleSubmit }>
-        <input
-          data-testid="email-input"
-          type="text"
-          placeholder="Email"
-          onChange={ ({ target: { value } }) => setLogin({ ...login, email: value }) }
-          value={ login.email }
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          placeholder="Senha"
-          onChange={ ({ target: { value } }) => setLogin({ ...login, password: value }) }
-          value={ login.password }
-        />
-        <button
-          data-testid="login-submit-btn"
-          type="submit"
-          disabled={ !areFieldsValid() }
-        >
-          Entrar
-        </button>
-      </form>
+    <div className="container-login">
+      <h1 className="title-page">Comes & Bebes</h1>
+      <main className="container">
+        <h2>Login</h2>
+        <form onSubmit={ handleSubmit }>
+          <div className="input-field">
+            <input
+              data-testid="email-input"
+              type="text"
+              placeholder="Email"
+              onChange={ ({ target: { value } }) => setLogin({ ...login, email: value }) }
+              value={ login.email }
+            />
+            <div className="underline" />
+          </div>
+          <div className="input-field">
+            <input
+              data-testid="password-input"
+              type="password"
+              placeholder="Senha"
+              onChange={ ({ target: { value } }) => setLogin({ ...login, password: value }) }
+              value={ login.password }
+            />
+            <div className="underline" />
+          </div>
+          <button
+            data-testid="login-submit-btn"
+            type="submit"
+            disabled={ !areFieldsValid() }
+          >
+            Continuar
+          </button>
+        </form>
+        <div className="footer">
+          <span>Or Connect With Social Media</span>
+          <div className="social-fields">
+            <div className="social-field twitter">
+              <a href="#">
+                <i className="fab fa-twitter" />
+                Sign in with Twitter
+              </a>
+            </div>
+            <div className="social-field facebook">
+              <a href="#">
+                <i className="fab fa-facebook-f" />
+                Sign in with Facebook
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
