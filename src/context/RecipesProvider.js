@@ -12,6 +12,7 @@ function RecipesProvider({ children }) {
   const [backup, setBackup] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [mealData, setMealData] = useState();
 
   useEffect(() => {
     const fetchComidas = async () => {
@@ -62,6 +63,8 @@ function RecipesProvider({ children }) {
     startLocalStorage,
     doneRecipes,
     setDoneRecipes,
+    mealData,
+    setMealData,
   };
 
   return (
