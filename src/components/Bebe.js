@@ -5,7 +5,7 @@ import DetailsContext from '../context/DetailsContext';
 import Ingredientes from './Ingredientes';
 import BotaoShareAndFavorite from './BotaoShareAndFavorite';
 
-function Bebe() {
+function Bebe({ isLoading }) {
   const { refeicao, recomendadas } = useContext(DetailsContext);
   if (Object.keys(refeicao).length === 0) return null;
   const {
@@ -27,7 +27,9 @@ function Bebe() {
       <p data-testid="recipe-category">{ `${strCategory} ${alcoholicOrNot}` }</p>
       <BotaoShareAndFavorite type="bebida" />
       <h2>Ingredients</h2>
-      <Ingredientes />
+      {
+        !isLoading && <Ingredientes />
+      }
       <h2>Instructions</h2>
       <p data-testid="instructions">{ strInstructions }</p>
       <h2>Recomendadas</h2>

@@ -9,12 +9,8 @@ function CategoryFilters({ comidasOuBebidas }) {
     currentFilter: '',
   });
   const {
-    comidas,
-    bebidas,
     setComidas,
     setBebidas,
-    backup,
-    setBackup,
   } = useContext(RecipesContext);
 
   const MAX_LENGTH_CATEGORY = 5;
@@ -56,39 +52,17 @@ function CategoryFilters({ comidasOuBebidas }) {
     const { currentFilter } = state;
 
     if (currentFilter === category) {
-      if (comidasOuBebidas === 'comidas') {
-        setComidas(backup);
-        setState({ ...state, currentFilter: '' });
-      } else {
-        setBebidas(backup);
-        setState({ ...state, currentFilter: '' });
-      }
-      return null;
-    }
-
-    if (currentFilter === '') {
-      if (comidasOuBebidas === 'comidas') {
-        setBackup(comidas);
-        fetchByCategory(category);
-      } else {
-        setBackup(bebidas);
-        console.log(category);
-        fetchByCategory(category);
-      }
+      setComidas(undefined);
+      setBebidas(undefined);
+      setState({ ...state, currentFilter: '' });
       return null;
     }
     fetchByCategory(category);
   };
 
   const resetFilter = () => {
-    const { currentFilter } = state;
-    if (currentFilter !== '') {
-      if (comidasOuBebidas === 'comidas') {
-        setComidas(backup);
-      } else {
-        setBebidas(backup);
-      }
-    }
+    setComidas(undefined);
+    setBebidas(undefined);
   };
 
   return (

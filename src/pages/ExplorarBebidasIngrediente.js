@@ -1,20 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
+import useDrink from '../hooks/UseDrink';
+import RecipesContext from '../context/RecipesContext';
 
-function BebidaIngredientes() {
+function ExplorarBebidasIngrediente() {
   const [filterByIngredientDrink, setFilterByIngredientDrink] = useState([]);
+  const { setBebidas } = useContext(RecipesContext);
+
+  const { fetchDrinksByIngredient } = useDrink();
+
   async function fetchDrinksIngredients() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
     const result = await response.json();
     setFilterByIngredientDrink(result.drinks);
   }
-  
+
   useEffect(() => {
     fetchDrinksIngredients();
   }, []);
+
+  const setDrinksByIngredients = async (ingredient) => {
+    const newBebidas = await fetchDrinksByIngredient(ingredient);
+    setBebidas(newBebidas);
+  };
 
   const MAX_LENGTH = 12;
   const ingredientsLimit = filterByIngredientDrink.slice(0, MAX_LENGTH);
@@ -23,33 +33,31 @@ function BebidaIngredientes() {
     <>
       <Header title="Explorar Ingredientes" />
       <div>
-        { ingredientsLimit.map((ingredient, index) => (
-
-          // eslint-disable-next-line react/jsx-key
+        { ingredientsLimit.map(({ strIngredient1: ingredient }, index) => (
           <Link
+            key={ ingredient }
             to="/bebidas"
-
+            onClick={ () => setDrinksByIngredients(ingredient) }
           >
             <div data-testid={ `${index}-ingredient-card` }>
               <img
                 data-testid={ `${index}-card-img` }
-                src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
-                alt={ ingredient.strIngredient1 }
+                src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
+                alt={ ingredient }
                 key={ index }
               />
               <h4
                 data-testid={ `${index}-card-name` }
               >
-                { ingredient.strIngredient1 }
+                { ingredient }
               </h4>
             </div>
           </Link>
         ))}
-
       </div>
       <MenuInferior />
     </>
   );
 }
 
-export default BebidaIngredientes;
+export default ExplorarBebidasIngrediente;

@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
+import useMeal from '../hooks/UseMeal';
 
-function ComidaIngredientes() {
+function ExplorarComidasIngrediente() {
   const [filterByIngredientMeal, setFilterByIngredientMeal] = useState([]);
-  const { setMealData } = useContext(RecipesContext);
+  const { setComidas } = useContext(RecipesContext);
+
+  const { fetchMealsByIngredient } = useMeal();
 
   async function fetchMealIngredients() {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
@@ -18,11 +21,11 @@ function ComidaIngredientes() {
     fetchMealIngredients();
   }, []);
 
-  const setMealsByIngredients = (ingredient) => (
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
-      .then((response) => response.json())
-      .then(({ meals }) => setMealData(meals))
-  );
+  const setMealsByIngredients = async (ingredient) => {
+    const newComidas = await fetchMealsByIngredient(ingredient);
+    setComidas(newComidas);
+  };
+
   const MAX_LENGTH = 12;
   const ingredientsLimit = filterByIngredientMeal.slice(0, MAX_LENGTH);
 
@@ -31,12 +34,10 @@ function ComidaIngredientes() {
       <Header title="Explorar Ingredientes" />
       <div>
         { ingredientsLimit && ingredientsLimit.map((ingredient, index) => (
-
-          // eslint-disable-next-line react/jsx-key
           <Link
+            key={ ingredient.idIngredient }
             to="/comidas"
             onClick={ () => setMealsByIngredients(ingredient.strIngredient) }
-            key={ ingredient.idIngredient }
 
           >
             <div data-testid={ `${index}-ingredient-card` }>
@@ -61,4 +62,4 @@ function ComidaIngredientes() {
   );
 }
 
-export default ComidaIngredientes;
+export default ExplorarComidasIngrediente;

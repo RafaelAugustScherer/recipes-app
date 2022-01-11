@@ -5,7 +5,7 @@ import Ingredientes from './Ingredientes';
 import DetailsContext from '../context/DetailsContext';
 import BotaoShareAndFavorite from './BotaoShareAndFavorite';
 
-function Come() {
+function Come({ isLoading }) {
   const { refeicao, recomendadas } = useContext(DetailsContext);
   if (Object.keys(refeicao).length === 0) return null;
   const {
@@ -31,7 +31,9 @@ function Come() {
       <p data-testid="recipe-category">{ strCategory }</p>
       <BotaoShareAndFavorite type="comida" />
       <h2>Ingredients</h2>
-      <Ingredientes />
+      {
+        !isLoading && <Ingredientes />
+      }
       <h2>Instructions</h2>
       <p data-testid="instructions" className="instructions">{ strInstructions }</p>
       <h2>Video</h2>

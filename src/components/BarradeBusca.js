@@ -11,7 +11,11 @@ function BarradeBusca({ comidasOuBebidas }) {
 
   const [value, setValue] = useState('');
   const [filter, setFilter] = useState(INGREDIENTE);
-  const { comidas, setComidas, bebidas, setBebidas } = useContext(RecipesContext);
+  const {
+    comidasBackup,
+    bebidasBackup,
+    setComidas,
+    setBebidas } = useContext(RecipesContext);
   const {
     fetchRecipesByIngredient,
     fetchRecipesByName,
@@ -20,7 +24,15 @@ function BarradeBusca({ comidasOuBebidas }) {
   const history = useHistory();
 
   const handleSearch = async () => {
-    let newSearch = comidasOuBebidas === 'comidas' ? [...comidas] : [...bebidas];
+    let newSearch = comidasOuBebidas === 'comidas'
+      ? [...comidasBackup] : [...bebidasBackup];
+
+    if (value === '') {
+      setComidas(undefined);
+      setBebidas(undefined);
+      return null;
+    }
+
     switch (filter) {
     case INGREDIENTE: {
       newSearch = await fetchRecipesByIngredient(comidasOuBebidas, value);

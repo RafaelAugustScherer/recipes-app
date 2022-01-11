@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import UseRecipe from '../hooks/UseRecipe';
 import Come from '../components/Come';
@@ -19,7 +19,7 @@ function Detalhes({ match: { url } }) {
 
   const MAX_LENGTH = 6;
   const { fetchRecipes, fetchRecipeById } = UseRecipe(MAX_LENGTH);
-  /* const [isLoading, setIsLoading] = useState(false); */
+  const [isLoading, setIsLoading] = useState(false);
 
   startLocalStorage();
 
@@ -34,14 +34,14 @@ function Detalhes({ match: { url } }) {
   };
 
   const fetchRecipe = async () => {
-    /* setIsLoading(true); */
+    setIsLoading(true);
     const newRefeicao = await fetchRecipeById(comidasOuBebidas, urlId);
     const newRecomendadas = await fetchRecipes(
       comidasOuBebidas === 'comidas' ? 'bebidas' : 'comidas',
     );
-    /* setIsLoading(false); */
     setRefeicao(newRefeicao);
     setRecomendadas(newRecomendadas);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -58,25 +58,14 @@ function Detalhes({ match: { url } }) {
   }, [progressUrl, setIsInProgress]);
 
   return (
-    /* isLoading ? (
-      <p>Loading...</p>
-    ) : ( */
     <div>
-      {/* <Toast
-        onClose={ () => setShareToast(false) }
-        show={ shareToast }
-        delay={ 3000 }
-        autohide
-      >
-        <p>Link copiado!</p>
-      </Toast> */}
       {
-        comidasOuBebidas === 'comidas' ? <Come /> : <Bebe />
+        comidasOuBebidas === 'comidas'
+          ? <Come isLoading={ isLoading } /> : <Bebe isLoading={ isLoading } />
       }
       <BotaoReceita url={ url } comidasOuBebidas={ comidasOuBebidas } />
     </div>
   );
-  /*  ); */
 }
 
 Detalhes.propTypes = {

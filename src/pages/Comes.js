@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import Card from '../components/Card';
@@ -6,15 +6,20 @@ import CategoryFilters from '../components/CategoryFilters';
 import MenuInferior from '../components/MenuInferior';
 
 function Comes() {
-  const { comidas } = useContext(RecipesContext);
+  const { comidas, setComidas, comidasBackup } = useContext(RecipesContext);
 
+  useEffect(() => () => {
+    setComidas(undefined);
+  }, [setComidas]);
+
+  console.log(comidas);
   return (
     <>
       <Header title="Comidas" comidasOuBebidas="comidas" />
       <div>
         <CategoryFilters comidasOuBebidas="comidas" />
         {
-          comidas.map((comida, index) => {
+          (comidas || comidasBackup).map((comida, index) => {
             const { id, name, image } = comida;
             const MAX_LENGTH = 12;
             if (index < MAX_LENGTH) {
@@ -33,7 +38,6 @@ function Comes() {
           })
         }
       </div>
-
       <MenuInferior />
     </>
 

@@ -7,22 +7,22 @@ function RecipesProvider({ children }) {
   const MAX_LENGTH = 12;
   const { fetchRecipes } = UseRecipe(MAX_LENGTH);
 
-  const [comidas, setComidas] = useState([]);
-  const [bebidas, setBebidas] = useState([]);
-  const [backup, setBackup] = useState([]);
+  const [comidas, setComidas] = useState();
+  const [bebidas, setBebidas] = useState();
+  const [comidasBackup, setComidasBackup] = useState([]);
+  const [bebidasBackup, setBebidasBackup] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
-  const [mealData, setMealData] = useState();
 
   useEffect(() => {
     const fetchComidas = async () => {
       const meals = await fetchRecipes('comidas');
-      setComidas(meals);
+      setComidasBackup(meals);
     };
 
     const fetchBebidas = async () => {
       const drinks = await fetchRecipes('bebidas');
-      setBebidas(drinks);
+      setBebidasBackup(drinks);
     };
 
     fetchComidas();
@@ -52,8 +52,10 @@ function RecipesProvider({ children }) {
   };
 
   const contextValue = {
-    backup,
-    setBackup,
+    comidasBackup,
+    setComidasBackup,
+    bebidasBackup,
+    setBebidasBackup,
     comidas,
     setComidas,
     bebidas,
@@ -63,8 +65,6 @@ function RecipesProvider({ children }) {
     startLocalStorage,
     doneRecipes,
     setDoneRecipes,
-    mealData,
-    setMealData,
   };
 
   return (

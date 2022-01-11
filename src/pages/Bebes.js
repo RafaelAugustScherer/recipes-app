@@ -6,14 +6,14 @@ import CategoryFilters from '../components/CategoryFilters';
 import MenuInferior from '../components/MenuInferior';
 
 function Bebes() {
-  const { bebidas } = useContext(RecipesContext);
+  const { bebidas, bebidasBackup } = useContext(RecipesContext);
   return (
     <>
       <Header title="Bebidas" comidasOuBebidas="bebidas" />
       <div>
         <CategoryFilters comidasOuBebidas="bebidas" />
         {
-          bebidas.map((bebida, index) => {
+          (bebidas || bebidasBackup).map((bebida, index) => {
             const { id, name, image } = bebida;
             return (
               <Card

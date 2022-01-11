@@ -13,8 +13,8 @@ import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarComidasArea from './pages/ExplorarComidasArea';
-import ComidaIngredientes from './pages/ComidaIngrediente';
-import BebidaIngredientes from './pages/BebidaIngrediente';
+import ExplorarComidasIngrediente from './pages/ExplorarComidasIngrediente';
+import ExplorarBebidasIngrediente from './pages/ExplorarBebidasIngrediente';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import DetailsProvider from './context/DetailsProvider';
@@ -47,12 +47,12 @@ function App() {
             <Route
               exact
               path="/explorar/comidas/ingredientes"
-              component={ ComidaIngredientes }
+              component={ ExplorarComidasIngrediente }
             />
             <Route
               exact
               path="/explorar/bebidas/ingredientes"
-              component={ BebidaIngredientes }
+              component={ ExplorarBebidasIngrediente }
             />
             <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
             <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
