@@ -23,9 +23,10 @@ function useMeal() {
     return convertMeal(meals[0]);
   };
 
-  const fetchMealsByIngredient = async (ingredient) => {
-    const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
-    return convertMeals(meals);
+  const fetchMealsByIngredient = async (ingredient, maxLength) => {
+    let { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
+    meals = convertMeals(meals);
+    return meals.slice(0, maxLength);
   };
 
   const fetchMealsByArea = async (area, maxLength) => {

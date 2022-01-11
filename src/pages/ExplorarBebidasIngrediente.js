@@ -2,14 +2,15 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
-import useDrink from '../hooks/UseDrink';
+import useRecipe from '../hooks/UseRecipe';
 import RecipesContext from '../context/RecipesContext';
 
 function ExplorarBebidasIngrediente() {
   const [filterByIngredientDrink, setFilterByIngredientDrink] = useState([]);
   const { setBebidas } = useContext(RecipesContext);
 
-  const { fetchDrinksByIngredient } = useDrink();
+  const MAX_LENGTH = 12;
+  const { fetchRecipesByIngredient } = useRecipe(MAX_LENGTH);
 
   async function fetchDrinksIngredients() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
@@ -22,11 +23,10 @@ function ExplorarBebidasIngrediente() {
   }, []);
 
   const setDrinksByIngredients = async (ingredient) => {
-    const newBebidas = await fetchDrinksByIngredient(ingredient);
+    const newBebidas = await fetchRecipesByIngredient('bebidas', ingredient);
     setBebidas(newBebidas);
   };
 
-  const MAX_LENGTH = 12;
   const ingredientsLimit = filterByIngredientDrink.slice(0, MAX_LENGTH);
 
   return (

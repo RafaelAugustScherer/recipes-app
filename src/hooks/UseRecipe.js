@@ -46,8 +46,8 @@ function useRecipe(maxLength) {
 
   const fetchRecipesByIngredient = async (comidasOuBebidas, ingredient) => {
     const recipes = comidasOuBebidas === COMIDAS
-      ? await fetchMealsByIngredient(ingredient)
-      : await fetchDrinksByIngredient(ingredient);
+      ? await fetchMealsByIngredient(ingredient, maxLength)
+      : await fetchDrinksByIngredient(ingredient, maxLength);
     return recipes;
   };
 

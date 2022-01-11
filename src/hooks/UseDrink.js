@@ -24,9 +24,10 @@ function useDrink() {
     return convertDrink(drinks[0]);
   };
 
-  const fetchDrinksByIngredient = async (ingredient) => {
-    const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
-    return convertDrinks(drinks);
+  const fetchDrinksByIngredient = async (ingredient, maxLength) => {
+    let { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`).then((response) => response.json());
+    drinks = convertDrinks(drinks);
+    return drinks.slice(0, maxLength);
   };
 
   const fetchDrinksByName = async (name) => {
