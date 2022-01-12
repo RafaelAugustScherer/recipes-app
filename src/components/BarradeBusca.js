@@ -77,7 +77,7 @@ function BarradeBusca({ comidasOuBebidas }) {
         <input
           data-testid="search-input"
           type="text"
-          placeholder="Buscar Receita"
+          placeholder="Procurar Receita"
           onChange={ ({ target: { value: newValue } }) => setValue(newValue) }
         />
         <div className={ headerCss.underline } />
