@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
 import useRecipe from '../hooks/UseRecipe';
 import RecipesContext from '../context/RecipesContext';
+import ExplorarIngredientes from '../style/ExplorarIngredientes.module.css';
+
 
 function ExplorarBebidasIngrediente() {
   const [filterByIngredientDrink, setFilterByIngredientDrink] = useState([]);
@@ -32,14 +34,14 @@ function ExplorarBebidasIngrediente() {
   return (
     <>
       <Header title="Explorar Ingredientes" />
-      <div>
+      <div className={ ExplorarIngredientes.itens }>
         { ingredientsLimit.map(({ strIngredient1: ingredient }, index) => (
           <Link
             key={ ingredient }
             to="/bebidas"
             onClick={ () => setDrinksByIngredients(ingredient) }
           >
-            <div data-testid={ `${index}-ingredient-card` }>
+            <div className={ ExplorarIngredientes.item } data-testid={ `${index}-ingredient-card` }>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }

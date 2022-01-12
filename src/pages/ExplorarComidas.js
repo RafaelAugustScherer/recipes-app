@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
+import ExplorarCss from '../style/Explorar.module.css';
 
 function ExplorarComidas() {
   const history = useHistory();
@@ -15,31 +16,31 @@ function ExplorarComidas() {
   return (
     <>
       <Header title="Explorar Comidas" />
+      <div className={ ExplorarCss.explorarComidas }>
+        <button
+          type="button"
+          data-testid="explore-by-ingredient"
+          onClick={ () => history.push('/explorar/comidas/ingredientes') }
+        >
+          Por Ingredientes
+        </button>
 
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-        onClick={ () => history.push('/explorar/comidas/ingredientes') }
-      >
-        Por Ingredientes
-      </button>
+        <button
+          type="button"
+          data-testid="explore-by-area"
+          onClick={ () => history.push('/explorar/comidas/area') }
+        >
+          Por Local de Origem
+        </button>
 
-      <button
-        type="button"
-        data-testid="explore-by-area"
-        onClick={ () => history.push('/explorar/comidas/area') }
-      >
-        Por Local de Origem
-      </button>
-
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ fetchRandomMeal }
-      >
-        Me Surpreenda!
-      </button>
-
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ fetchRandomMeal }
+        >
+          Me Surpreenda!
+        </button>
+      </div>
       <MenuInferior />
     </>
   );

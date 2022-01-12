@@ -73,13 +73,15 @@ function BarradeBusca({ comidasOuBebidas }) {
 
   return (
     <div className={ headerCss.searchBar }>
-      <input
-        className={ headerCss.inputBar }
-        data-testid="search-input"
-        type="text"
-        placeholder="Buscar Receita"
-        onChange={ ({ target: { value: newValue } }) => setValue(newValue) }
-      />
+      <div className={ headerCss.inputBar }>
+        <input
+          data-testid="search-input"
+          type="text"
+          placeholder="Buscar Receita"
+          onChange={ ({ target: { value: newValue } }) => setValue(newValue) }
+        />
+        <div className={ headerCss.underline } />
+      </div>
       <div className={ headerCss.radios_container }>
         <label htmlFor="ingrediente">
           <input

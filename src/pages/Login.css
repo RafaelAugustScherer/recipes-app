@@ -5,9 +5,9 @@
   letter-spacing: 15px;
   position: fixed;
   left: 50%;
-  top: 15%;
+  top: 16%;
   transform: translate(-50%, -50%);
-  text-align: center
+  text-align: center;
 }
 
 .container-login {

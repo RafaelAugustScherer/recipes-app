@@ -44,7 +44,53 @@
 .inputBar {
   margin-top: 1rem;
   width: 70%;
+  position: relative;
 }
+
+.inputBar .underline::before {
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  background: rgba(255, 255, 255, 0);
+}
+
+.inputBar .underline::after {
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  background: linear-gradient(45deg, #ff0000ca,rgb(255, 157, 0));
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+  transform-origin: left;
+}
+
+
+.inputBar input:focus ~ .underline:after {
+  transform: scaleX(1);
+}
+
+.inputBar input {
+  outline: none;
+  font-size: 0.9rem;
+  color: rgb(0, 0, 0, 0.7);
+  width: 100%;
+  border-radius: 5px;
+  border-bottom: 1px;
+  height: 35px;
+}
+
+.inputBar input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  padding-left: 10px;
+}
+
+
 .radios_container {
   align-items: center;
   display: flex;
@@ -57,12 +103,27 @@
   align-items: center;
   display: flex;
   margin: 0;
+  white-space: nowrap;
 }
 
-.radios_container button {
-  background-color: rgb(224, 140, 81);
-  border: none;
-  border-radius: 15%;
-  padding: 0.1rem 0.3rem;
+  .searchBar button {
+  background-color: #ff000069;
+  /* border: none; */
+  border-radius: 10px;
+  padding: 8px 15px;
+  width: 70%;
+  font-size: 16px;
+  letter-spacing: 3px;
+  font-weight: 500;
+  border: 1px solid #efefef9f;
+}
+
+.searchBar button:active {
+  background-color: #ff00009b;
+  color: #efefef;
+}
+
+.searchBar input[type="radio"] {
+  margin: 5px;
 
 }
