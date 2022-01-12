@@ -83,12 +83,7 @@ function Ingredientes() {
   }, [isInProgress, ingredientes]);
 
   useEffect(() => {
-    console.log('montado');
     fillIngredientsList();
-
-    return () => {
-      console.log('desmontado');
-    };
     // eslint-disable-next-line
   }, []);
 
