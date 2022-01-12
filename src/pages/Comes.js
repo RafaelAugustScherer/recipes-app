@@ -12,7 +12,6 @@ function Comes() {
     setComidas(undefined);
   }, [setComidas]);
 
-  console.log(comidas);
   return (
     <>
       <Header title="Comidas" comidasOuBebidas="comidas" />

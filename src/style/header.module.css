@@ -42,8 +42,8 @@
   justify-content: center;
 }
 .inputBar {
-  margin-top: 1rem;
-  width: 70%;
+  width: 100%;
+  padding: 1rem 1rem 0;
   position: relative;
 }
 
@@ -51,9 +51,9 @@
   content: '';
   position: absolute;
   height: 3px;
-  width: 100%;
+  width: 90%;
   bottom: -5px;
-  left: 0;
+  left: 5%;
   background: rgba(255, 255, 255, 0);
 }
 
@@ -61,9 +61,9 @@
   content: '';
   position: absolute;
   height: 3px;
-  width: 100%;
+  width: 90%;
   bottom: -5px;
-  left: 0;
+  left: 5%;
   background: linear-gradient(45deg, #ff0000ca,rgb(255, 157, 0));
   transform: scaleX(0);
   transition: all 0.3s ease-in-out;
@@ -79,6 +79,7 @@
   outline: none;
   font-size: 0.9rem;
   color: rgb(0, 0, 0, 0.7);
+  padding-left: 10px;
   width: 100%;
   border-radius: 5px;
   border-bottom: 1px;
@@ -87,35 +88,23 @@
 
 .inputBar input::placeholder {
   color: rgba(0, 0, 0, 0.5);
-  padding-left: 10px;
 }
 
 
 .radios_container {
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
   padding: 1rem;
-  width: 100%;
-}
-
-.radios_container label {
-  align-items: center;
-  display: flex;
-  margin: 0;
-  white-space: nowrap;
 }
 
   .searchBar button {
   background-image: linear-gradient(90deg, #ff5e00be, #ffae00ed);
   /* border: none; */
   border-radius: 10px;
+  color: white;
   padding: 8px 15px;
   width: 70%;
   font-size: 16px;
   letter-spacing: 3px;
   font-weight: 500;
-  border: 1px solid #efefef9f;
 }
 
 .searchBar button:active {

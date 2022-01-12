@@ -50,7 +50,9 @@ function Login() {
               data-testid="password-input"
               type="password"
               placeholder="Senha"
-              onChange={ ({ target: { value } }) => setLogin({ ...login, password: value }) }
+              onChange={
+                ({ target: { value } }) => setLogin({ ...login, password: value })
+              }
               value={ login.password }
             />
             <div className="underline" />
@@ -64,18 +66,18 @@ function Login() {
           </button>
         </form>
         <div className="footer">
-          <span>Or Connect With Social Media</span>
+          <span>Ou Conecte Com Uma Rede Social</span>
           <div className="social-fields">
             <div className="social-field twitter">
               <a href="#">
                 <i className="fab fa-twitter" />
-                Sign in with Twitter
+                Entrar com Twitter
               </a>
             </div>
             <div className="social-field facebook">
               <a href="#">
                 <i className="fab fa-facebook-f" />
-                Sign in with Facebook
+                Entrar com Facebook
               </a>
             </div>
           </div>

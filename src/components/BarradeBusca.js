@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import RecipesContext from '../context/RecipesContext';
 import UseRecipe from '../hooks/UseRecipe';
 import headerCss from '../style/header.module.css';
@@ -9,6 +10,7 @@ function BarradeBusca({ comidasOuBebidas }) {
   const INGREDIENTE = 'Ingrediente';
   const NOME = 'Nome';
   const PRIMEIRA_LETRA = 'Primeira Letra';
+  const radios = [INGREDIENTE, NOME, PRIMEIRA_LETRA];
 
   const [value, setValue] = useState('');
   const [filter, setFilter] = useState(INGREDIENTE);
@@ -82,41 +84,27 @@ function BarradeBusca({ comidasOuBebidas }) {
         />
         <div className={ headerCss.underline } />
       </div>
-      <div className={ headerCss.radios_container }>
-        <label htmlFor="ingrediente">
-          <input
-            data-testid="ingredient-search-radio"
-            type="radio"
-            id="ingrediente"
-            value={ INGREDIENTE }
-            checked={ filter === INGREDIENTE }
-            onChange={ () => setFilter(INGREDIENTE) }
-          />
-          Ingrediente
-        </label>
-        <label htmlFor="nome">
-          <input
-            data-testid="name-search-radio"
-            type="radio"
-            id="nome"
-            value={ NOME }
-            checked={ filter === NOME }
-            onChange={ () => setFilter(NOME) }
-          />
-          Nome
-        </label>
-        <label htmlFor="primeira-letra">
-          <input
-            data-testid="first-letter-search-radio"
-            type="radio"
-            id="primeira-letra"
-            value={ PRIMEIRA_LETRA }
-            checked={ filter === PRIMEIRA_LETRA }
-            onChange={ () => setFilter(PRIMEIRA_LETRA) }
-          />
-          Primeira Letra
-        </label>
-      </div>
+      <ToggleButtonGroup
+        type="radio"
+        name="filter-radio"
+        className={ headerCss.radios_container }
+      >
+        {
+          radios.map((radio) => (
+            <ToggleButton
+              key={ `${radio}-radio` }
+              data-testid={ `${radio}-search-radio` }
+              id={ radio }
+              value={ radio }
+              variant="outline-dark"
+              checked={ filter === radio }
+              onChange={ () => setFilter(radio) }
+            >
+              { radio }
+            </ToggleButton>
+          ))
+        }
+      </ToggleButtonGroup>
       <button
         data-testid="exec-search-btn"
         type="button"
