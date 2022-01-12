@@ -1,4 +1,4 @@
-.category {
+.category, .categoryDrink {
   top: 15%;
   display: flex;
   justify-content: space-around;
@@ -12,11 +12,11 @@
   scroll-behavior: smooth;
 }
 
-.category::-webkit-scrollbar {
+.category::-webkit-scrollbar, .categoryDrink::-webkit-scrollbar {
   display: none;
 }
 
-.category button {
+.category button, .categoryDrink button {
   background-color: rgba(124, 123, 123, 0.116);
   padding: 10px 15px;
   border-radius: 35px;
@@ -31,7 +31,7 @@
   margin-left: 150px;
 }
 
-.category button:hover {
+.category button:hover, .categoryDrink button:hover {
   background-image: linear-gradient(45deg, #ff000071, rgba(255, 251, 0, 0.329));
   color: #ff0000d7;
   /* text-decoration: underline; */
@@ -40,3 +40,7 @@
 .btnCategory {
   background-color: red;
 } */
+
+.categoryDrink button:nth-child( 1 ) {
+  margin-left: 250px;
+}

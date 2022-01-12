@@ -33,7 +33,7 @@ function Login() {
     <div className="container-login">
       <h1 className="title-page">Comes & Bebes</h1>
       <main className="container">
-        <h2>Login</h2>
+        <h3>Login</h3>
         <form onSubmit={ handleSubmit }>
           <div className="input-field">
             <input

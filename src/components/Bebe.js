@@ -4,6 +4,7 @@ import CardRecomendacao from './CardRecomendacao';
 import DetailsContext from '../context/DetailsContext';
 import Ingredientes from './Ingredientes';
 import BotaoShareAndFavorite from './BotaoShareAndFavorite';
+import DetalhesCss from '../style/Detalhes.module.css';
 
 function Bebe({ isLoading }) {
   const { refeicao, recomendadas } = useContext(DetailsContext);
@@ -21,30 +22,33 @@ function Bebe({ isLoading }) {
       <img
         data-testid="recipe-photo"
         src={ image }
+        className={ DetalhesCss.imgDetails }
         alt="Recipe"
       />
-      <p data-testid="recipe-title">{ name }</p>
-      <p data-testid="recipe-category">{ `${strCategory} ${alcoholicOrNot}` }</p>
-      <BotaoShareAndFavorite type="bebida" />
-      <h2>Ingredients</h2>
-      {
-        !isLoading && <Ingredientes />
-      }
-      <h2>Instructions</h2>
-      <p data-testid="instructions">{ strInstructions }</p>
-      <h2>Recomendadas</h2>
-      <div className="carrossel">
-        { recomendadas
-          .map(({ id, name: mealName, image: mealImage }, index) => (
-            <CardRecomendacao
-              key={ mealName }
-              thumb={ mealImage }
-              name={ mealName }
-              index={ index }
-              id={ id }
-              url="comidas"
-            />
-          )) }
+      <div className={ DetalhesCss.textContainer }>
+        <p data-testid="recipe-title">{ name }</p>
+        <p data-testid="recipe-category">{ `${strCategory} ${alcoholicOrNot}` }</p>
+        <BotaoShareAndFavorite type="bebida" />
+        <h2>Ingredients</h2>
+        {
+          !isLoading && <Ingredientes />
+        }
+        <h2>Instructions</h2>
+        <p data-testid="instructions">{ strInstructions }</p>
+        <h2>Recomendadas</h2>
+        <div className="carrossel">
+          { recomendadas
+            .map(({ id, name: mealName, image: mealImage }, index) => (
+              <CardRecomendacao
+                key={ mealName }
+                thumb={ mealImage }
+                name={ mealName }
+                index={ index }
+                id={ id }
+                url="comidas"
+              />
+            )) }
+        </div>
       </div>
     </>
   );

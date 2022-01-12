@@ -96,7 +96,8 @@ function BarradeBusca({ comidasOuBebidas }) {
               data-testid={ `${radio}-search-radio` }
               id={ radio }
               value={ radio }
-              variant="outline-dark"
+              className={ headerCss.radios }
+              variant=""
               checked={ filter === radio }
               onChange={ () => setFilter(radio) }
             >

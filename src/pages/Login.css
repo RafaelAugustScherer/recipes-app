@@ -46,17 +46,17 @@ main.container {
   transform: translate(-50%, -50%);
 }
 
-main h2 {
+main h3 {
   font-weight: 600;
   margin-bottom: 2rem;
   position: relative;
 }
 
-main h2:before {
+main h3:before {
   content: '';
   position: absolute;
   height: 4px;
-  width: 25px;
+  width: 30px;
   bottom: 3px;
   left: 0;
   border-radius: 8px;
@@ -108,6 +108,7 @@ form .input-field:first-child {
 .input-field input {
   outline: none;
   font-size: 0.9rem;
+  width: 100%;
   color: rgb(0, 0, 0, 0.7);
 
 }

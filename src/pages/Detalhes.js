@@ -6,6 +6,8 @@ import Bebe from '../components/Bebe';
 import BotaoReceita from '../components/BotaoReceita';
 import DetailsContext from '../context/DetailsContext';
 import RecipesContext from '../context/RecipesContext';
+import DetalhesCss from '../style/Detalhes.module.css';
+
 
 function Detalhes({ match: { url } }) {
   const {
@@ -58,7 +60,7 @@ function Detalhes({ match: { url } }) {
   }, [progressUrl, setIsInProgress]);
 
   return (
-    <div>
+    <div className={ DetalhesCss.container }>
       {
         comidasOuBebidas === 'comidas'
           ? <Come isLoading={ isLoading } /> : <Bebe isLoading={ isLoading } />
