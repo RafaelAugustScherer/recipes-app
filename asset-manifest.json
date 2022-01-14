@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/recipes-app/static/css/main.ef3b0ea9.chunk.css",
+    "main.js": "/recipes-app/static/js/main.52ffbfd2.chunk.js",
+    "main.js.map": "/recipes-app/static/js/main.52ffbfd2.chunk.js.map",
+    "runtime-main.js": "/recipes-app/static/js/runtime-main.1228032d.js",
+    "runtime-main.js.map": "/recipes-app/static/js/runtime-main.1228032d.js.map",
+    "static/css/2.945f44db.chunk.css": "/recipes-app/static/css/2.945f44db.chunk.css",
+    "static/js/2.a2ca2fb0.chunk.js": "/recipes-app/static/js/2.a2ca2fb0.chunk.js",
+    "static/js/2.a2ca2fb0.chunk.js.map": "/recipes-app/static/js/2.a2ca2fb0.chunk.js.map",
+    "index.html": "/recipes-app/index.html",
+    "precache-manifest.6bbe81c5c4686476c0d3e7329a666b92.js": "/recipes-app/precache-manifest.6bbe81c5c4686476c0d3e7329a666b92.js",
+    "service-worker.js": "/recipes-app/service-worker.js",
+    "static/css/2.945f44db.chunk.css.map": "/recipes-app/static/css/2.945f44db.chunk.css.map",
+    "static/css/main.ef3b0ea9.chunk.css.map": "/recipes-app/static/css/main.ef3b0ea9.chunk.css.map",
+    "static/js/2.a2ca2fb0.chunk.js.LICENSE.txt": "/recipes-app/static/js/2.a2ca2fb0.chunk.js.LICENSE.txt",
+    "static/media/blackHeartIcon.svg": "/recipes-app/static/media/blackHeartIcon.fed97292.svg",
+    "static/media/drinkIcon.svg": "/recipes-app/static/media/drinkIcon.e20c3bb8.svg",
+    "static/media/exploreIcon.svg": "/recipes-app/static/media/exploreIcon.8486ec46.svg",
+    "static/media/mealIcon.svg": "/recipes-app/static/media/mealIcon.0a218dad.svg",
+    "static/media/profileIcon.svg": "/recipes-app/static/media/profileIcon.8712a673.svg",
+    "static/media/searchIcon.svg": "/recipes-app/static/media/searchIcon.4552d440.svg",
+    "static/media/shareIcon.svg": "/recipes-app/static/media/shareIcon.bede9005.svg",
+    "static/media/Login.css": "/recipes-app/static/media/wallpaper01.8de3938b.jpg",
+    "static/media/whiteHeartIcon.svg": "/recipes-app/static/media/whiteHeartIcon.7e5b379e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1228032d.js",
+    "static/css/2.945f44db.chunk.css",
+    "static/js/2.a2ca2fb0.chunk.js",
+    "static/css/main.ef3b0ea9.chunk.css",
+    "static/js/main.52ffbfd2.chunk.js"
+  ]
+}
