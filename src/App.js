@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import './pages/Login.css';
 import './pages/Comes.css';
 import Login from './pages/Login';
@@ -24,7 +24,7 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <RecipesProvider>
         <DetailsProvider>
           <Switch>
@@ -62,7 +62,7 @@ function App() {
           </Switch>
         </DetailsProvider>
       </RecipesProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
